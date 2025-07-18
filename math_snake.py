@@ -9,9 +9,7 @@ pygame.init()
 # Константы
 WINDOW_WIDTH = 800
 WINDOW_HEIGHT = 600
-GRID_SIZE = 40  # Увеличиваем размер клетки
-GRID_WIDTH = WINDOW_WIDTH // GRID_SIZE
-GRID_HEIGHT = WINDOW_HEIGHT // GRID_SIZE
+BASE_GRID_SIZE = 20  # Базовый размер клетки
 
 # Цвета
 BLACK = (0, 0, 0)
@@ -46,8 +44,7 @@ class MathSnakeGame:
         pygame.display.set_caption("Математическая Змейка")
         self.clock = pygame.time.Clock()
         self.font = pygame.font.Font(None, 36)
-        self.small_font = pygame.font.Font(None, 18)  # Уменьшаем для чисел
-        self.number_font = pygame.font.Font(None, 16)  # Специальный шрифт для чисел
+        self.small_font = pygame.font.Font(None, 24)
         
         # Состояние игры
         self.game_state = "menu"  # menu, game, game_over
@@ -56,8 +53,13 @@ class MathSnakeGame:
         self.color_mode = ColorMode.DIFFERENT_COLORS
         self.score = 0
         
+        # Динамические размеры
+        self.grid_size = BASE_GRID_SIZE
+        self.grid_width = WINDOW_WIDTH // self.grid_size
+        self.grid_height = WINDOW_HEIGHT // self.grid_size
+        
         # Змейка
-        self.snake = [(GRID_WIDTH // 2, GRID_HEIGHT // 2)]
+        self.snake = [(self.grid_width // 2, self.grid_height // 2)]
         self.direction = (1, 0)
         
         # Математическое выражение и числа на поле
@@ -65,9 +67,31 @@ class MathSnakeGame:
         self.correct_answer = 0
         self.numbers_on_field = []
         
+        self.update_grid_size()
         self.generate_new_expression()
         self.generate_numbers()
+    
+    def update_grid_size(self):
+        """Обновляет размер сетки в зависимости от сложности"""
+        if self.difficulty == Difficulty.LEVEL_1:
+            self.grid_size = 30
+            self.number_font = pygame.font.Font(None, 20)
+        elif self.difficulty == Difficulty.LEVEL_2:
+            self.grid_size = 35
+            self.number_font = pygame.font.Font(None, 18)
+        elif self.difficulty == Difficulty.LEVEL_3:
+            self.grid_size = 45
+            self.number_font = pygame.font.Font(None, 16)
+        elif self.difficulty == Difficulty.LEVEL_4:
+            self.grid_size = 55
+            self.number_font = pygame.font.Font(None, 14)
+        else:  # LEVEL_5
+            self.grid_size = 50
+            self.number_font = pygame.font.Font(None, 15)
         
+        self.grid_width = WINDOW_WIDTH // self.grid_size
+        self.grid_height = WINDOW_HEIGHT // self.grid_size
+
     def generate_new_expression(self):
         """Генерирует новое математическое выражение"""
         if self.difficulty == Difficulty.LEVEL_1:
@@ -113,16 +137,16 @@ class MathSnakeGame:
         self.numbers_on_field = []
         
         # Добавляем правильный ответ
-        correct_pos = (random.randint(1, GRID_WIDTH - 2), 
-                      random.randint(3, GRID_HEIGHT - 2))
+        correct_pos = (random.randint(1, self.grid_width - 2), 
+                      random.randint(3, self.grid_height - 2))
         self.numbers_on_field.append((correct_pos, self.correct_answer, True))
         
         # Добавляем неправильные ответы
         used_positions = {correct_pos}
         for _ in range(8):  # 8 неправильных ответов
             while True:
-                pos = (random.randint(1, GRID_WIDTH - 2), 
-                      random.randint(3, GRID_HEIGHT - 2))
+                pos = (random.randint(1, self.grid_width - 2), 
+                      random.randint(3, self.grid_height - 2))
                 if pos not in used_positions and pos not in self.snake:
                     used_positions.add(pos)
                     # Генерируем неправильный ответ
@@ -153,14 +177,19 @@ class MathSnakeGame:
                 self.operation = Operation.MODULO
             elif event.key == pygame.K_q:
                 self.difficulty = Difficulty.LEVEL_1
+                self.update_grid_size()
             elif event.key == pygame.K_w:
                 self.difficulty = Difficulty.LEVEL_2
+                self.update_grid_size()
             elif event.key == pygame.K_e:
                 self.difficulty = Difficulty.LEVEL_3
+                self.update_grid_size()
             elif event.key == pygame.K_r:
                 self.difficulty = Difficulty.LEVEL_4
+                self.update_grid_size()
             elif event.key == pygame.K_t:
                 self.difficulty = Difficulty.LEVEL_5
+                self.update_grid_size()
             elif event.key == pygame.K_c:
                 # Переключение цветового режима
                 if self.color_mode == ColorMode.DIFFERENT_COLORS:
@@ -174,7 +203,7 @@ class MathSnakeGame:
         """Начинает новую игру"""
         self.game_state = "game"
         self.score = 0
-        self.snake = [(GRID_WIDTH // 2, GRID_HEIGHT // 2)]
+        self.snake = [(self.grid_width // 2, self.grid_height // 2)]
         self.direction = (1, 0)
         self.generate_new_expression()
         self.generate_numbers()
@@ -203,8 +232,8 @@ class MathSnakeGame:
         new_head = (head_x + self.direction[0], head_y + self.direction[1])
         
         # Проверка столкновения со стенами
-        if (new_head[0] < 0 or new_head[0] >= GRID_WIDTH or 
-            new_head[1] < 0 or new_head[1] >= GRID_HEIGHT):
+        if (new_head[0] < 0 or new_head[0] >= self.grid_width or 
+            new_head[1] < 0 or new_head[1] >= self.grid_height):
             self.game_state = "game_over"
             return
         
@@ -312,14 +341,14 @@ class MathSnakeGame:
         
         # Отрисовка змейки
         for segment in self.snake:
-            rect = pygame.Rect(segment[0] * GRID_SIZE, segment[1] * GRID_SIZE, 
-                             GRID_SIZE, GRID_SIZE)
+            rect = pygame.Rect(segment[0] * self.grid_size, segment[1] * self.grid_size, 
+                             self.grid_size, self.grid_size)
             pygame.draw.rect(self.screen, GREEN, rect)
         
         # Отрисовка чисел на поле
         for pos, number, is_correct in self.numbers_on_field:
-            rect = pygame.Rect(pos[0] * GRID_SIZE, pos[1] * GRID_SIZE, 
-                             GRID_SIZE, GRID_SIZE)
+            rect = pygame.Rect(pos[0] * self.grid_size, pos[1] * self.grid_size, 
+                             self.grid_size, self.grid_size)
             
             # Выбор цвета в зависимости от режима
             if self.color_mode == ColorMode.DIFFERENT_COLORS:

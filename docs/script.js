@@ -4,7 +4,8 @@ class MathSnakeGame {
         this.ctx = this.canvas.getContext('2d');
         
         // Constants
-        this.GRID_SIZE = 40;  // Increase grid size
+        this.BASE_GRID_SIZE = 20;
+        this.GRID_SIZE = this.BASE_GRID_SIZE;
         this.GRID_WIDTH = this.canvas.width / this.GRID_SIZE;
         this.GRID_HEIGHT = this.canvas.height / this.GRID_SIZE;
         
@@ -23,6 +24,7 @@ class MathSnakeGame {
         this.currentExpression = '';
         this.correctAnswer = 0;
         this.numbersOnField = [];
+        this.numberFontSize = '20px'; // Default font size for numbers
         
         this.setupEventListeners();
         this.setupUI();
@@ -109,7 +111,37 @@ class MathSnakeGame {
     }
     
     setupUI() {
+        this.updateGridSize();
         this.updateMenuSelections();
+    }
+    
+    updateGridSize() {
+        // Update grid size based on difficulty
+        switch (this.difficulty) {
+            case 'level1':
+                this.GRID_SIZE = 30;
+                this.numberFontSize = '20px';
+                break;
+            case 'level2':
+                this.GRID_SIZE = 35;
+                this.numberFontSize = '18px';
+                break;
+            case 'level3':
+                this.GRID_SIZE = 45;
+                this.numberFontSize = '16px';
+                break;
+            case 'level4':
+                this.GRID_SIZE = 55;
+                this.numberFontSize = '14px';
+                break;
+            case 'level5':
+                this.GRID_SIZE = 50;
+                this.numberFontSize = '15px';
+                break;
+        }
+        
+        this.GRID_WIDTH = this.canvas.width / this.GRID_SIZE;
+        this.GRID_HEIGHT = this.canvas.height / this.GRID_SIZE;
     }
     
     updateMenuSelections() {
@@ -158,11 +190,26 @@ class MathSnakeGame {
             case '3': this.operation = 'multiplication'; break;
             case '4': this.operation = 'division'; break;
             case '5': this.operation = 'modulo'; break;
-            case 'q': this.difficulty = 'level1'; break;
-            case 'w': this.difficulty = 'level2'; break;
-            case 'e': this.difficulty = 'level3'; break;
-            case 'r': this.difficulty = 'level4'; break;
-            case 't': this.difficulty = 'level5'; break;
+            case 'q': 
+                this.difficulty = 'level1';
+                this.updateGridSize();
+                break;
+            case 'w': 
+                this.difficulty = 'level2';
+                this.updateGridSize();
+                break;
+            case 'e': 
+                this.difficulty = 'level3';
+                this.updateGridSize();
+                break;
+            case 'r': 
+                this.difficulty = 'level4';
+                this.updateGridSize();
+                break;
+            case 't': 
+                this.difficulty = 'level5';
+                this.updateGridSize();
+                break;
             case 'c': 
                 this.colorMode = this.colorMode === 'different' ? 'same' : 'different';
                 break;
@@ -402,9 +449,9 @@ class MathSnakeGame {
                 this.GRID_SIZE
             );
             
-            // Draw number text
+            // Draw number text with dynamic font size
             this.ctx.fillStyle = '#fff';
-            this.ctx.font = '14px Arial';  // Smaller font for numbers
+            this.ctx.font = `${this.numberFontSize} Arial`;
             this.ctx.textAlign = 'center';
             this.ctx.textBaseline = 'middle';
             this.ctx.fillText(
