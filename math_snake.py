@@ -445,17 +445,3 @@ class MathSnakeGame:
 if __name__ == "__main__":
     game = MathSnakeGame()
     game.run()
-            elif self.game_state == "game":
-                self.draw_game()
-            elif self.game_state == "game_over":
-                self.draw_game_over()
-            
-            pygame.display.flip()
-            self.clock.tick(5)  # 5 FPS для змейки
-        
-        pygame.quit()
-        sys.exit()
-
-if __name__ == "__main__":
-    game = MathSnakeGame()
-    game.run()

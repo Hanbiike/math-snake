@@ -354,6 +354,12 @@ class MathSnakeGame {
         }
     }
     
+    generateWrongAnswer() {
+        let variation = Math.floor(Math.random() * 21) - 10;
+        if (variation === 0) variation = Math.random() < 0.5 ? -1 : 1;
+        return Math.max(0, this.correctAnswer + variation);
+    }
+    
     updateNumbersAfterCorrectAnswer(eatenPos) {
         // Get all existing positions (including the eaten one)
         const allPositions = this.numbersOnField.map(numObj => numObj.pos);
@@ -492,12 +498,6 @@ class MathSnakeGame {
 document.addEventListener('DOMContentLoaded', () => {
     new MathSnakeGame();
 });
-});
-            this.ctx.textBaseline = 'middle';
-            this.ctx.fillText(
-                numObj.number.toString(),
-                numObj.pos.x * this.GRID_SIZE + this.GRID_SIZE / 2,
-                numObj.pos.y * this.GRID_SIZE + this.GRID_SIZE / 2
             );
         });
     }
