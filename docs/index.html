@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Математическая Змейка</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="game-container">
+        <h1>Математическая Змейка</h1>
+        
+        <div id="menu" class="screen">
+            <div class="menu-section">
+                <h3>Выберите операцию (1-5):</h3>
+                <div class="options">
+                    <div class="option" data-key="1">1. Сложение (+)</div>
+                    <div class="option" data-key="2">2. Вычитание (-)</div>
+                    <div class="option" data-key="3">3. Умножение (*)</div>
+                    <div class="option" data-key="4">4. Деление (/)</div>
+                    <div class="option" data-key="5">5. Остаток от деления (%)</div>
+                </div>
+            </div>
+            
+            <div class="menu-section">
+                <h3>Выберите уровень сложности (Q,W,E,R,T):</h3>
+                <div class="options">
+                    <div class="option" data-key="q">Q. Однозначные (1-9)</div>
+                    <div class="option" data-key="w">W. Двузначные (10-99)</div>
+                    <div class="option" data-key="e">E. Трёхзначные (100-999)</div>
+                    <div class="option" data-key="r">R. Четырёхзначные (1000-9999)</div>
+                    <div class="option" data-key="t">T. Смешанные (1-9999)</div>
+                </div>
+            </div>
+            
+            <div class="menu-section">
+                <h3>Цветовой режим (C):</h3>
+                <div class="options">
+                    <div class="option" data-key="c" id="color-mode-option">C. Разные цвета (синий/красный)</div>
+                </div>
+            </div>
+            
+            <div class="start-instruction">
+                <p>Нажмите ПРОБЕЛ для начала игры</p>
+            </div>
+        </div>
+        
+        <div id="game" class="screen hidden">
+            <div id="game-info">
+                <div id="expression">2 + 3 = ?</div>
+                <div id="score">Счёт: 0</div>
+            </div>
+            <canvas id="game-canvas" width="800" height="600"></canvas>
+            <div id="game-instructions">
+                ESC - в меню, стрелки - управление
+            </div>
+        </div>
+        
+        <div id="game-over" class="screen hidden">
+            <h2>Игра окончена!</h2>
+            <div id="final-score">Ваш счёт: 0</div>
+            <p>Нажмите любую клавишу для возврата в меню</p>
+        </div>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>
