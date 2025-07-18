@@ -354,52 +354,12 @@ class MathSnakeGame {
         }
     }
     
-    updateNumbersAfterCorrectAnswer(eatenPos) {
-        // Remove the eaten number
-        this.numbersOnField = this.numbersOnField.filter(num => 
-            !(num.pos.x === eatenPos.x && num.pos.y === eatenPos.y)
-        );
-        
-        // Update values of existing numbers (keep positions)
-        const updatedNumbers = this.numbersOnField.map(numObj => ({
-            pos: numObj.pos,
-            number: this.generateWrongAnswer(),
-            isCorrect: false
-        }));
-        
-        // Add new correct answer in random place
-        const usedPositions = new Set();
-        updatedNumbers.forEach(num => usedPositions.add(`${num.pos.x},${num.pos.y}`));
-        this.snake.forEach(segment => usedPositions.add(`${segment.x},${segment.y}`));
-        
-        let newPos;
-        do {
-            newPos = {
-                x: Math.floor(Math.random() * (this.GRID_WIDTH - 4)) + 2,
-                y: Math.floor(Math.random() * (this.GRID_HEIGHT - 6)) + 3
-            };
-        } while (usedPositions.has(`${newPos.x},${newPos.y}`));
-        
-        updatedNumbers.push({ pos: newPos, number: this.correctAnswer, isCorrect: true });
-        
-        // Add one more number if needed to maintain 9 total
-        if (updatedNumbers.length < 9) {
-            usedPositions.add(`${newPos.x},${newPos.y}`);
-            let additionalPos;
-            do {
-                additionalPos = {
-                    x: Math.floor(Math.random() * (this.GRID_WIDTH - 4)) + 2,
-                    y: Math.floor(Math.random() * (this.GRID_HEIGHT - 6)) + 3
-                };
-            } while (usedPositions.has(`${additionalPos.x},${additionalPos.y}`) || this.isSnakePosition(additionalPos));
-            
-            const wrongAnswer = this.generateWrongAnswer();
-            updatedNumbers.push({ pos: additionalPos, number: wrongAnswer, isCorrect: false });
-        }
-        
-        this.numbersOnField = updatedNumbers;
+    generateWrongAnswer() {
+        let variation = Math.floor(Math.random() * 21) - 10;
+        if (variation === 0) variation = Math.random() < 0.5 ? -1 : 1;
+        return Math.max(0, this.correctAnswer + variation);
     }
-
+    
     isSnakePosition(pos) {
         return this.snake.some(segment => segment.x === pos.x && segment.y === pos.y);
     }
@@ -430,7 +390,7 @@ class MathSnakeGame {
             if (eatenNumber.isCorrect) {
                 this.score += 10;
                 this.generateNewExpression();
-                this.updateNumbersAfterCorrectAnswer(eatenNumber.pos);
+                this.generateNumbers();
                 this.updateGameUI();
             } else {
                 this.gameOver();
