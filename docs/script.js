@@ -6,8 +6,6 @@ class MathSnakeGame {
         // Constants
         this.BASE_GRID_SIZE = 20;
         this.GRID_SIZE = this.BASE_GRID_SIZE;
-        this.GRID_WIDTH = this.canvas.width / this.GRID_SIZE;
-        this.GRID_HEIGHT = this.canvas.height / this.GRID_SIZE;
         
         // Game state
         this.gameState = 'menu'; // menu, game, game_over
@@ -17,7 +15,7 @@ class MathSnakeGame {
         this.score = 0;
         
         // Snake
-        this.snake = [{ x: Math.floor(this.GRID_WIDTH / 2), y: Math.floor(this.GRID_HEIGHT / 2) }];
+        this.snake = [];
         this.direction = { x: 1, y: 0 };
         
         // Math
@@ -26,11 +24,26 @@ class MathSnakeGame {
         this.numbersOnField = [];
         this.numberFontSize = '20px'; // Default font size for numbers
         
+        // Initialize grid dimensions
+        this.updateCanvasSize();
+        this.updateGridSize();
+        
         this.setupEventListeners();
         this.setupUI();
         this.generateNewExpression();
         this.generateNumbers();
         this.gameLoop();
+    }
+    
+    updateCanvasSize() {
+        // Get actual canvas dimensions (accounting for CSS scaling)
+        const rect = this.canvas.getBoundingClientRect();
+        this.actualWidth = this.canvas.width;
+        this.actualHeight = this.canvas.height;
+        
+        // Update grid dimensions based on actual canvas size
+        this.GRID_WIDTH = Math.floor(this.actualWidth / this.GRID_SIZE);
+        this.GRID_HEIGHT = Math.floor(this.actualHeight / this.GRID_SIZE);
     }
     
     setupEventListeners() {
@@ -44,70 +57,66 @@ class MathSnakeGame {
             });
         });
         
+        // Window resize handler
+        window.addEventListener('resize', () => {
+            this.updateCanvasSize();
+        });
+        
         // Setup mobile controls after DOM is ready
         this.setupMobileControls();
     }
     
     setupMobileControls() {
-        // Mobile start button - add error handling and delay setup
-        setTimeout(() => {
-            const mobileStartBtn = document.getElementById('mobile-start-btn');
-            if (mobileStartBtn) {
-                mobileStartBtn.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    console.log('Mobile start button clicked'); // Debug log
-                    this.startGame();
-                });
-                
-                mobileStartBtn.addEventListener('touchend', (e) => {
-                    e.preventDefault();
-                    console.log('Mobile start button touched'); // Debug log
-                    this.startGame();
-                });
-            } else {
-                console.log('Mobile start button not found'); // Debug log
-            }
+        // Mobile start button
+        const mobileStartBtn = document.getElementById('mobile-start-btn');
+        if (mobileStartBtn) {
+            const startHandler = (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                this.startGame();
+            };
             
-            // Mobile menu button for game over screen
-            const mobileMenuBtn = document.getElementById('mobile-menu-btn');
-            if (mobileMenuBtn) {
-                mobileMenuBtn.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    console.log('Mobile menu button clicked'); // Debug log
-                    this.gameState = 'menu';
-                    this.showScreen('menu');
-                });
-                
-                mobileMenuBtn.addEventListener('touchend', (e) => {
-                    e.preventDefault();
-                    console.log('Mobile menu button touched'); // Debug log
-                    this.gameState = 'menu';
-                    this.showScreen('menu');
-                });
-            }
+            mobileStartBtn.addEventListener('click', startHandler);
+            mobileStartBtn.addEventListener('touchend', startHandler);
+        }
+        
+        // Mobile menu button for game over screen
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        if (mobileMenuBtn) {
+            const menuHandler = (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                this.gameState = 'menu';
+                this.showScreen('menu');
+            };
             
-            // Mobile control buttons - add error handling
-            document.querySelectorAll('.control-btn').forEach(btn => {
-                btn.addEventListener('touchstart', (e) => {
-                    e.preventDefault();
-                    const direction = btn.dataset.direction;
-                    console.log('Touch control:', direction); // Debug log
-                    this.handleMobileControl(direction);
-                });
-                
-                btn.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    const direction = btn.dataset.direction;
-                    console.log('Click control:', direction); // Debug log
-                    this.handleMobileControl(direction);
-                });
-                
-                // Prevent context menu on long press
-                btn.addEventListener('contextmenu', (e) => {
-                    e.preventDefault();
-                });
+            mobileMenuBtn.addEventListener('click', menuHandler);
+            mobileMenuBtn.addEventListener('touchend', menuHandler);
+        }
+        
+        // Mobile control buttons
+        document.querySelectorAll('.control-btn').forEach(btn => {
+            const direction = btn.dataset.direction;
+            
+            const controlHandler = (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                this.handleMobileControl(direction);
+            };
+            
+            btn.addEventListener('touchstart', controlHandler);
+            btn.addEventListener('click', controlHandler);
+            
+            // Prevent context menu on long press
+            btn.addEventListener('contextmenu', (e) => {
+                e.preventDefault();
             });
-        }, 100);
+            
+            // Prevent double-tap zoom
+            btn.addEventListener('touchend', (e) => {
+                e.preventDefault();
+            });
+        });
     }
     
     setupUI() {
@@ -140,8 +149,7 @@ class MathSnakeGame {
                 break;
         }
         
-        this.GRID_WIDTH = this.canvas.width / this.GRID_SIZE;
-        this.GRID_HEIGHT = this.canvas.height / this.GRID_SIZE;
+        this.updateCanvasSize();
     }
     
     updateMenuSelections() {
@@ -263,6 +271,7 @@ class MathSnakeGame {
     startGame() {
         this.gameState = 'game';
         this.score = 0;
+        this.updateCanvasSize(); // Ensure grid is up to date
         this.snake = [{ x: Math.floor(this.GRID_WIDTH / 2), y: Math.floor(this.GRID_HEIGHT / 2) }];
         this.direction = { x: 1, y: 0 };
         this.generateNewExpression();
@@ -330,6 +339,12 @@ class MathSnakeGame {
     generateNumbers() {
         this.numbersOnField = [];
         
+        // Ensure we have valid grid dimensions
+        if (this.GRID_WIDTH <= 4 || this.GRID_HEIGHT <= 6) {
+            console.warn('Grid too small for number generation');
+            return;
+        }
+        
         // Add correct answer
         const correctPos = {
             x: Math.floor(Math.random() * (this.GRID_WIDTH - 4)) + 2,
@@ -339,14 +354,20 @@ class MathSnakeGame {
         
         // Add wrong answers
         const usedPositions = new Set([`${correctPos.x},${correctPos.y}`]);
-        for (let i = 0; i < 8; i++) {
+        const maxNumbers = Math.min(8, Math.floor((this.GRID_WIDTH - 4) * (this.GRID_HEIGHT - 6) / 4));
+        
+        for (let i = 0; i < maxNumbers; i++) {
             let pos;
+            let attempts = 0;
             do {
                 pos = {
                     x: Math.floor(Math.random() * (this.GRID_WIDTH - 4)) + 2,
                     y: Math.floor(Math.random() * (this.GRID_HEIGHT - 6)) + 3
                 };
-            } while (usedPositions.has(`${pos.x},${pos.y}`) || this.isSnakePosition(pos));
+                attempts++;
+            } while ((usedPositions.has(`${pos.x},${pos.y}`) || this.isSnakePosition(pos)) && attempts < 50);
+            
+            if (attempts >= 50) break; // Prevent infinite loop
             
             usedPositions.add(`${pos.x},${pos.y}`);
             const wrongAnswer = this.generateWrongAnswer();
