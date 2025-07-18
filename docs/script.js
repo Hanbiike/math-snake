@@ -42,33 +42,52 @@ class MathSnakeGame {
             });
         });
         
-        // Mobile start button - add error handling
-        const mobileStartBtn = document.getElementById('mobile-start-btn');
-        if (mobileStartBtn) {
-            mobileStartBtn.addEventListener('click', () => {
-                this.startGame();
-            });
-        }
-        
-        // Mobile control buttons - add error handling
-        document.querySelectorAll('.control-btn').forEach(btn => {
-            btn.addEventListener('touchstart', (e) => {
-                e.preventDefault();
-                const direction = btn.dataset.direction;
-                this.handleMobileControl(direction);
-            });
+        // Setup mobile controls after DOM is ready
+        this.setupMobileControls();
+    }
+    
+    setupMobileControls() {
+        // Mobile start button - add error handling and delay setup
+        setTimeout(() => {
+            const mobileStartBtn = document.getElementById('mobile-start-btn');
+            if (mobileStartBtn) {
+                mobileStartBtn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    console.log('Mobile start button clicked'); // Debug log
+                    this.startGame();
+                });
+                
+                mobileStartBtn.addEventListener('touchend', (e) => {
+                    e.preventDefault();
+                    console.log('Mobile start button touched'); // Debug log
+                    this.startGame();
+                });
+            } else {
+                console.log('Mobile start button not found'); // Debug log
+            }
             
-            btn.addEventListener('click', (e) => {
-                e.preventDefault();
-                const direction = btn.dataset.direction;
-                this.handleMobileControl(direction);
+            // Mobile control buttons - add error handling
+            document.querySelectorAll('.control-btn').forEach(btn => {
+                btn.addEventListener('touchstart', (e) => {
+                    e.preventDefault();
+                    const direction = btn.dataset.direction;
+                    console.log('Touch control:', direction); // Debug log
+                    this.handleMobileControl(direction);
+                });
+                
+                btn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const direction = btn.dataset.direction;
+                    console.log('Click control:', direction); // Debug log
+                    this.handleMobileControl(direction);
+                });
+                
+                // Prevent context menu on long press
+                btn.addEventListener('contextmenu', (e) => {
+                    e.preventDefault();
+                });
             });
-            
-            // Prevent context menu on long press
-            btn.addEventListener('contextmenu', (e) => {
-                e.preventDefault();
-            });
-        });
+        }, 100);
     }
     
     setupUI() {
