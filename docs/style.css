@@ -121,7 +121,7 @@ h1 {
     display: none;
 }
 
-#mobile-start-btn {
+#mobile-start-btn, #mobile-menu-btn {
     background-color: #0f0;
     color: #000;
     border: none;
@@ -132,7 +132,7 @@ h1 {
     margin-top: 20px;
 }
 
-#mobile-start-btn:hover {
+#mobile-start-btn:hover, #mobile-menu-btn:hover {
     background-color: #0a0;
 }
 
@@ -194,6 +194,10 @@ h1 {
     }
     
     #game-instructions {
+        display: none;
+    }
+    
+    #game-over p {
         display: none;
     }
 }

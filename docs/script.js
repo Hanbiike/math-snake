@@ -4,7 +4,7 @@ class MathSnakeGame {
         this.ctx = this.canvas.getContext('2d');
         
         // Constants
-        this.GRID_SIZE = 20;
+        this.GRID_SIZE = 40;  // Increase grid size
         this.GRID_WIDTH = this.canvas.width / this.GRID_SIZE;
         this.GRID_HEIGHT = this.canvas.height / this.GRID_SIZE;
         
@@ -64,6 +64,24 @@ class MathSnakeGame {
                 });
             } else {
                 console.log('Mobile start button not found'); // Debug log
+            }
+            
+            // Mobile menu button for game over screen
+            const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+            if (mobileMenuBtn) {
+                mobileMenuBtn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    console.log('Mobile menu button clicked'); // Debug log
+                    this.gameState = 'menu';
+                    this.showScreen('menu');
+                });
+                
+                mobileMenuBtn.addEventListener('touchend', (e) => {
+                    e.preventDefault();
+                    console.log('Mobile menu button touched'); // Debug log
+                    this.gameState = 'menu';
+                    this.showScreen('menu');
+                });
             }
             
             // Mobile control buttons - add error handling
@@ -385,8 +403,8 @@ class MathSnakeGame {
             );
             
             // Draw number text
-            this.ctx.fillStyle = '#000';
-            this.ctx.font = '12px Arial';
+            this.ctx.fillStyle = '#fff';
+            this.ctx.font = '14px Arial';  // Smaller font for numbers
             this.ctx.textAlign = 'center';
             this.ctx.textBaseline = 'middle';
             this.ctx.fillText(

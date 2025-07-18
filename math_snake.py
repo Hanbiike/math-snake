@@ -9,7 +9,7 @@ pygame.init()
 # Константы
 WINDOW_WIDTH = 800
 WINDOW_HEIGHT = 600
-GRID_SIZE = 20
+GRID_SIZE = 40  # Увеличиваем размер клетки
 GRID_WIDTH = WINDOW_WIDTH // GRID_SIZE
 GRID_HEIGHT = WINDOW_HEIGHT // GRID_SIZE
 
@@ -46,7 +46,8 @@ class MathSnakeGame:
         pygame.display.set_caption("Математическая Змейка")
         self.clock = pygame.time.Clock()
         self.font = pygame.font.Font(None, 36)
-        self.small_font = pygame.font.Font(None, 24)
+        self.small_font = pygame.font.Font(None, 18)  # Уменьшаем для чисел
+        self.number_font = pygame.font.Font(None, 16)  # Специальный шрифт для чисел
         
         # Состояние игры
         self.game_state = "menu"  # menu, game, game_over
@@ -329,7 +330,7 @@ class MathSnakeGame:
             pygame.draw.rect(self.screen, color, rect)
             
             # Отрисовка числа
-            num_text = self.small_font.render(str(number), True, BLACK)
+            num_text = self.number_font.render(str(number), True, WHITE)
             text_rect = num_text.get_rect(center=rect.center)
             self.screen.blit(num_text, text_rect)
         
