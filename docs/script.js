@@ -42,13 +42,22 @@ class MathSnakeGame {
             });
         });
         
-        // Mobile start button
-        document.getElementById('mobile-start-btn').addEventListener('click', () => {
-            this.startGame();
-        });
+        // Mobile start button - add error handling
+        const mobileStartBtn = document.getElementById('mobile-start-btn');
+        if (mobileStartBtn) {
+            mobileStartBtn.addEventListener('click', () => {
+                this.startGame();
+            });
+        }
         
-        // Mobile control buttons
+        // Mobile control buttons - add error handling
         document.querySelectorAll('.control-btn').forEach(btn => {
+            btn.addEventListener('touchstart', (e) => {
+                e.preventDefault();
+                const direction = btn.dataset.direction;
+                this.handleMobileControl(direction);
+            });
+            
             btn.addEventListener('click', (e) => {
                 e.preventDefault();
                 const direction = btn.dataset.direction;
@@ -92,7 +101,7 @@ class MathSnakeGame {
         if (this.gameState === 'menu') {
             this.handleMenuKey(e.key.toLowerCase());
         } else if (this.gameState === 'game') {
-            this.handleGameKey(e.key);
+            this.handleGameKey(e.key.toLowerCase());
         } else if (this.gameState === 'game_over') {
             if (e.key !== 'F5') {
                 this.gameState = 'menu';
@@ -128,7 +137,7 @@ class MathSnakeGame {
     }
     
     handleGameKey(key) {
-        switch (key.toLowerCase()) {
+        switch (key) {
             case 'w':
                 if (this.direction.y !== 1) this.direction = { x: 0, y: -1 };
                 break;

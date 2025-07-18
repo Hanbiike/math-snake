@@ -181,13 +181,13 @@ class MathSnakeGame:
     def handle_game_events(self, event):
         """Обработка событий в игре"""
         if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_UP and self.direction != (0, 1):
+            if event.key == pygame.K_w and self.direction != (0, 1):
                 self.direction = (0, -1)
-            elif event.key == pygame.K_DOWN and self.direction != (0, -1):
+            elif event.key == pygame.K_s and self.direction != (0, -1):
                 self.direction = (0, 1)
-            elif event.key == pygame.K_LEFT and self.direction != (1, 0):
+            elif event.key == pygame.K_a and self.direction != (1, 0):
                 self.direction = (-1, 0)
-            elif event.key == pygame.K_RIGHT and self.direction != (-1, 0):
+            elif event.key == pygame.K_d and self.direction != (-1, 0):
                 self.direction = (1, 0)
             elif event.key == pygame.K_ESCAPE:
                 self.game_state = "menu"
@@ -334,7 +334,7 @@ class MathSnakeGame:
             self.screen.blit(num_text, text_rect)
         
         # Инструкция
-        instr_text = self.small_font.render("ESC - в меню, стрелки - управление", True, GRAY)
+        instr_text = self.small_font.render("ESC - в меню, WASD - управление", True, GRAY)
         self.screen.blit(instr_text, (10, WINDOW_HEIGHT - 25))
     
     def draw_game_over(self):
