@@ -41,6 +41,25 @@ class MathSnakeGame {
                 this.handleMenuSelection(key);
             });
         });
+        
+        // Mobile start button
+        document.getElementById('mobile-start-btn').addEventListener('click', () => {
+            this.startGame();
+        });
+        
+        // Mobile control buttons
+        document.querySelectorAll('.control-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.preventDefault();
+                const direction = btn.dataset.direction;
+                this.handleMobileControl(direction);
+            });
+            
+            // Prevent context menu on long press
+            btn.addEventListener('contextmenu', (e) => {
+                e.preventDefault();
+            });
+        });
     }
     
     setupUI() {
@@ -65,8 +84,8 @@ class MathSnakeGame {
     }
     
     handleKeyPress(e) {
-        // Prevent default behavior for arrow keys and space to avoid page scrolling
-        if (['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight', ' '].includes(e.key)) {
+        // Prevent default behavior for WASD keys and space to avoid page scrolling
+        if (['w', 'a', 's', 'd', 'W', 'A', 'S', 'D', ' '].includes(e.key)) {
             e.preventDefault();
         }
         
@@ -109,22 +128,41 @@ class MathSnakeGame {
     }
     
     handleGameKey(key) {
-        switch (key) {
-            case 'ArrowUp':
+        switch (key.toLowerCase()) {
+            case 'w':
                 if (this.direction.y !== 1) this.direction = { x: 0, y: -1 };
                 break;
-            case 'ArrowDown':
+            case 's':
                 if (this.direction.y !== -1) this.direction = { x: 0, y: 1 };
                 break;
-            case 'ArrowLeft':
+            case 'a':
                 if (this.direction.x !== 1) this.direction = { x: -1, y: 0 };
                 break;
-            case 'ArrowRight':
+            case 'd':
                 if (this.direction.x !== -1) this.direction = { x: 1, y: 0 };
                 break;
-            case 'Escape':
+            case 'escape':
                 this.gameState = 'menu';
                 this.showScreen('menu');
+                break;
+        }
+    }
+    
+    handleMobileControl(direction) {
+        if (this.gameState !== 'game') return;
+        
+        switch (direction) {
+            case 'up':
+                if (this.direction.y !== 1) this.direction = { x: 0, y: -1 };
+                break;
+            case 'down':
+                if (this.direction.y !== -1) this.direction = { x: 0, y: 1 };
+                break;
+            case 'left':
+                if (this.direction.x !== 1) this.direction = { x: -1, y: 0 };
+                break;
+            case 'right':
+                if (this.direction.x !== -1) this.direction = { x: 1, y: 0 };
                 break;
         }
     }
