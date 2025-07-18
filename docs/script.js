@@ -354,32 +354,47 @@ class MathSnakeGame {
         }
     }
     
-    generateWrongAnswer() {
-        let variation = Math.floor(Math.random() * 21) - 10;
-        if (variation === 0) variation = Math.random() < 0.5 ? -1 : 1;
-        return Math.max(0, this.correctAnswer + variation);
-    }
-    
     updateNumbersAfterCorrectAnswer(eatenPos) {
-        // Get all existing positions (including the eaten one)
-        const allPositions = this.numbersOnField.map(numObj => numObj.pos);
+        // Remove the eaten number
+        this.numbersOnField = this.numbersOnField.filter(num => 
+            !(num.pos.x === eatenPos.x && num.pos.y === eatenPos.y)
+        );
         
-        // Choose random position for correct answer
-        const correctPositionIndex = Math.floor(Math.random() * allPositions.length);
-        const correctPosition = allPositions[correctPositionIndex];
+        // Update values of existing numbers (keep positions)
+        const updatedNumbers = this.numbersOnField.map(numObj => ({
+            pos: numObj.pos,
+            number: this.generateWrongAnswer(),
+            isCorrect: false
+        }));
         
-        // Update numbers at all positions
-        const updatedNumbers = [];
-        for (let i = 0; i < allPositions.length; i++) {
-            const pos = allPositions[i];
-            if (i === correctPositionIndex) {
-                // This position gets the correct answer
-                updatedNumbers.push({ pos, number: this.correctAnswer, isCorrect: true });
-            } else {
-                // Other positions get wrong answers
-                const wrongAnswer = this.generateWrongAnswer();
-                updatedNumbers.push({ pos, number: wrongAnswer, isCorrect: false });
-            }
+        // Add new correct answer in random place
+        const usedPositions = new Set();
+        updatedNumbers.forEach(num => usedPositions.add(`${num.pos.x},${num.pos.y}`));
+        this.snake.forEach(segment => usedPositions.add(`${segment.x},${segment.y}`));
+        
+        let newPos;
+        do {
+            newPos = {
+                x: Math.floor(Math.random() * (this.GRID_WIDTH - 4)) + 2,
+                y: Math.floor(Math.random() * (this.GRID_HEIGHT - 6)) + 3
+            };
+        } while (usedPositions.has(`${newPos.x},${newPos.y}`));
+        
+        updatedNumbers.push({ pos: newPos, number: this.correctAnswer, isCorrect: true });
+        
+        // Add one more number if needed to maintain 9 total
+        if (updatedNumbers.length < 9) {
+            usedPositions.add(`${newPos.x},${newPos.y}`);
+            let additionalPos;
+            do {
+                additionalPos = {
+                    x: Math.floor(Math.random() * (this.GRID_WIDTH - 4)) + 2,
+                    y: Math.floor(Math.random() * (this.GRID_HEIGHT - 6)) + 3
+                };
+            } while (usedPositions.has(`${additionalPos.x},${additionalPos.y}`) || this.isSnakePosition(additionalPos));
+            
+            const wrongAnswer = this.generateWrongAnswer();
+            updatedNumbers.push({ pos: additionalPos, number: wrongAnswer, isCorrect: false });
         }
         
         this.numbersOnField = updatedNumbers;
@@ -483,21 +498,6 @@ class MathSnakeGame {
                 numObj.number.toString(),
                 numObj.pos.x * this.GRID_SIZE + this.GRID_SIZE / 2,
                 numObj.pos.y * this.GRID_SIZE + this.GRID_SIZE / 2
-            );
-        });
-    }
-    
-    gameLoop() {
-        this.updateGame();
-        this.draw();
-        setTimeout(() => this.gameLoop(), 200); // 5 FPS
-    }
-}
-
-// Start the game when the page loads
-document.addEventListener('DOMContentLoaded', () => {
-    new MathSnakeGame();
-});
             );
         });
     }

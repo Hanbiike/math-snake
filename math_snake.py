@@ -388,23 +388,37 @@ class MathSnakeGame:
     
     def update_numbers_after_correct_answer(self, eaten_pos):
         """Обновляет числа после поедания правильного ответа"""
-        # Получаем все позиции (включая съеденную)
-        all_positions = [pos for pos, _, _ in self.numbers_on_field]
+        # Удаляем съеденное число
+        self.numbers_on_field = [(pos, number, is_correct) for pos, number, is_correct in self.numbers_on_field if pos != eaten_pos]
         
-        # Выбираем случайную позицию для правильного ответа
-        correct_position_index = random.randint(0, len(all_positions) - 1)
-        correct_position = all_positions[correct_position_index]
-        
-        # Обновляем числа на всех позициях
+        # Обновляем значения существующих чисел (кроме позиций)
         updated_numbers = []
-        for i, pos in enumerate(all_positions):
-            if i == correct_position_index:
-                # Эта позиция получает правильный ответ
-                updated_numbers.append((pos, self.correct_answer, True))
-            else:
-                # Остальные позиции получают неправильные ответы
-                new_number = self.generate_wrong_answer()
-                updated_numbers.append((pos, new_number, False))
+        for pos, _, is_correct in self.numbers_on_field:
+            new_number = self.generate_wrong_answer()
+            updated_numbers.append((pos, new_number, False))
+        
+        # Добавляем новый правильный ответ в случайное место
+        used_positions = {pos for pos, _, _ in updated_numbers}
+        used_positions.update({seg for seg in self.snake})
+        
+        while True:
+            new_pos = (random.randint(1, self.grid_width - 2), 
+                      random.randint(3, self.grid_height - 2))
+            if new_pos not in used_positions:
+                updated_numbers.append((new_pos, self.correct_answer, True))
+                break
+        
+        # Если нужно добавить еще одно число для полного набора
+        if len(updated_numbers) < 9:
+            while True:
+                pos = (random.randint(1, self.grid_width - 2), 
+                      random.randint(3, self.grid_height - 2))
+                used_positions = {p for p, _, _ in updated_numbers}
+                used_positions.update({seg for seg in self.snake})
+                if pos not in used_positions:
+                    wrong_answer = self.generate_wrong_answer()
+                    updated_numbers.append((pos, wrong_answer, False))
+                    break
         
         self.numbers_on_field = updated_numbers
 
