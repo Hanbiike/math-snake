@@ -248,16 +248,16 @@ class MathSnakeGame:
         eaten_number = None
         for i, (pos, number, is_correct) in enumerate(self.numbers_on_field):
             if new_head == pos:
-                eaten_number = (i, number, is_correct)
+                eaten_number = (i, number, is_correct, pos)
                 break
         
         if eaten_number:
-            index, number, is_correct = eaten_number
+            index, number, is_correct, eaten_pos = eaten_number
             if is_correct:
                 # Правильный ответ - змейка растёт
                 self.score += 10
                 self.generate_new_expression()
-                self.generate_numbers()
+                self.update_numbers_after_correct_answer(eaten_pos)
             else:
                 # Неправильный ответ - игра окончена
                 self.game_state = "game_over"
@@ -386,6 +386,42 @@ class MathSnakeGame:
         menu_rect = menu_text.get_rect(center=(WINDOW_WIDTH // 2, 400))
         self.screen.blit(menu_text, menu_rect)
     
+    def update_numbers_after_correct_answer(self, eaten_pos):
+        """Обновляет числа после поедания правильного ответа"""
+        # Удаляем съеденное число
+        self.numbers_on_field = [(pos, number, is_correct) for pos, number, is_correct in self.numbers_on_field if pos != eaten_pos]
+        
+        # Обновляем значения существующих чисел (кроме позиций)
+        updated_numbers = []
+        for pos, _, is_correct in self.numbers_on_field:
+            new_number = self.generate_wrong_answer()
+            updated_numbers.append((pos, new_number, False))
+        
+        # Добавляем новый правильный ответ в случайное место
+        used_positions = {pos for pos, _, _ in updated_numbers}
+        used_positions.update({seg for seg in self.snake})
+        
+        while True:
+            new_pos = (random.randint(1, self.grid_width - 2), 
+                      random.randint(3, self.grid_height - 2))
+            if new_pos not in used_positions:
+                updated_numbers.append((new_pos, self.correct_answer, True))
+                break
+        
+        # Если нужно добавить еще одно число для полного набора
+        if len(updated_numbers) < 9:
+            while True:
+                pos = (random.randint(1, self.grid_width - 2), 
+                      random.randint(3, self.grid_height - 2))
+                used_positions = {p for p, _, _ in updated_numbers}
+                used_positions.update({seg for seg in self.snake})
+                if pos not in used_positions:
+                    wrong_answer = self.generate_wrong_answer()
+                    updated_numbers.append((pos, wrong_answer, False))
+                    break
+        
+        self.numbers_on_field = updated_numbers
+
     def run(self):
         """Основной игровой цикл"""
         running = True
