@@ -65,6 +65,11 @@ class MathSnakeGame {
     }
     
     handleKeyPress(e) {
+        // Prevent default behavior for arrow keys and space to avoid page scrolling
+        if (['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight', ' '].includes(e.key)) {
+            e.preventDefault();
+        }
+        
         if (this.gameState === 'menu') {
             this.handleMenuKey(e.key.toLowerCase());
         } else if (this.gameState === 'game') {
