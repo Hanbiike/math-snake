@@ -38,40 +38,43 @@
     }
 
     header {
-      padding: 10px 16px;
+      padding: 8px 12px;
       display: grid;
       grid-template-columns: 1fr auto 1fr;
       align-items: center;
-      gap: 12px;
+      gap: 8px;
+      background: rgba(15, 23, 42, 0.3);
+      border-bottom: 1px solid rgba(31, 42, 68, 0.5);
     }
 
     header h1 {
       margin: 0;
-      font-size: clamp(16px, 3vw, 22px);
+      font-size: clamp(14px, 2.5vw, 18px);
       letter-spacing: 0.02em;
       filter: drop-shadow(0 2px 0 rgba(0,0,0,.35));
     }
 
     .hud {
-      display: grid;
-      grid-auto-flow: column;
-      grid-auto-columns: 1fr;
-      gap: 8px;
-      place-items: center;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      justify-content: center;
+      align-items: center;
     }
 
     .chip {
       background: linear-gradient(180deg, #0f172a, #0b1220);
       border: 1px solid #1f2a44;
       border-radius: 999px;
-      padding: 6px 10px;
-      font-size: 12px;
+      padding: 4px 8px;
+      font-size: 11px;
       color: var(--muted);
       display: inline-flex;
-      gap: 8px;
+      gap: 6px;
       align-items: center;
       box-shadow: var(--shadow);
       white-space: nowrap;
+      min-width: 0;
     }
 
     .chip b { color: var(--text); font-weight: 700; }
@@ -202,7 +205,24 @@
 
     @media (max-width: 480px) {
       .panel { grid-template-columns: 1fr; gap: 8px; }
-      header { grid-template-columns: 1fr; }
+      header { 
+        grid-template-columns: 1fr; 
+        text-align: center;
+        gap: 6px;
+      }
+      .hud {
+        justify-content: center;
+        gap: 4px;
+      }
+      .chip {
+        font-size: 10px;
+        padding: 3px 6px;
+        gap: 4px;
+      }
+      header h1 {
+        order: -1;
+        margin-bottom: 4px;
+      }
     }
 
     .hidden { display: none !important; }
@@ -425,11 +445,18 @@
         this.canvas.addEventListener('touchstart', (e) => {
           if (e.touches[0]) {
             touchStart = { x: e.touches[0].clientX, y: e.touches[0].clientY };
+            e.preventDefault(); // Prevent page scrolling
           }
-        }, { passive: true });
+        }, { passive: false });
+
+        this.canvas.addEventListener('touchmove', (e) => {
+          e.preventDefault(); // Prevent page scrolling during touch move
+        }, { passive: false });
 
         this.canvas.addEventListener('touchend', (e) => {
           if (!touchStart) return;
+          
+          e.preventDefault(); // Prevent page scrolling
           
           const touch = e.changedTouches[0];
           const dx = touch.clientX - touchStart.x;
@@ -445,7 +472,7 @@
             }
           }
           touchStart = null;
-        }, { passive: true });
+        }, { passive: false });
       }
 
       // Game state management
