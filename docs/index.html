@@ -1,80 +1,987 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Математическая Змейка</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Snake × Math</title>
+  <style>
+    :root {
+      --bg: #0d0f12;
+      --grid: #1d232f;
+      --grid-alt: #151a22;
+      --text: #d9e1ff;
+      --muted: #94a3b8;
+      --accent: #6ee7ff;
+      --good: #22c55e;
+      --bad: #ef4444;
+      --warn: #f59e0b;
+      --tile: 24px;
+      --border: 3px;
+      --radius: 12px;
+      --panel: #0f141c;
+      --shadow: 0 12px 40px rgba(0,0,0,.4), inset 0 0 0 1px rgba(255,255,255,.04);
+    }
+
+    * { box-sizing: border-box; }
+    html, body { height: 100%; }
+    
+    body {
+      margin: 0;
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+      gap: 10px;
+      background: radial-gradient(1200px 800px at 20% -20%, #111827 10%, #0b0f14 50%, var(--bg) 100%);
+      color: var(--text);
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+      -webkit-font-smoothing: antialiased;
+      line-height: 1.3;
+    }
+
+    header {
+      padding: 10px 16px;
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      gap: 12px;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: clamp(16px, 3vw, 22px);
+      letter-spacing: 0.02em;
+      filter: drop-shadow(0 2px 0 rgba(0,0,0,.35));
+    }
+
+    .hud {
+      display: grid;
+      grid-auto-flow: column;
+      grid-auto-columns: 1fr;
+      gap: 8px;
+      place-items: center;
+    }
+
+    .chip {
+      background: linear-gradient(180deg, #0f172a, #0b1220);
+      border: 1px solid #1f2a44;
+      border-radius: 999px;
+      padding: 6px 10px;
+      font-size: 12px;
+      color: var(--muted);
+      display: inline-flex;
+      gap: 8px;
+      align-items: center;
+      box-shadow: var(--shadow);
+      white-space: nowrap;
+    }
+
+    .chip b { color: var(--text); font-weight: 700; }
+
+    .wrap {
+      display: grid;
+      grid-template-columns: 1fr;
+      place-items: center;
+      padding: 6px 12px 18px;
+      gap: 12px;
+    }
+
+    .board-wrap {
+      background: linear-gradient(180deg, #0f172a, #0a0f17);
+      border: 1px solid #1c2435;
+      border-radius: var(--radius);
+      padding: 10px;
+      box-shadow: var(--shadow);
+      position: relative;
+    }
+
+    canvas {
+      image-rendering: pixelated;
+      width: calc(var(--tile) * 20);
+      height: calc(var(--tile) * 20);
+      background: repeating-linear-gradient(0deg, var(--grid) 0 24px, var(--grid-alt) 24px 48px),
+                  repeating-linear-gradient(90deg, transparent 0 24px, rgba(255,255,255,0.02) 24px 48px);
+      border-radius: 10px;
+      display: block;
+    }
+
+    .panel {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      gap: 12px;
+      place-items: center;
+      width: 100%;
+    }
+
+    .expr {
+      background: var(--panel);
+      border: 1px solid #1d2739;
+      padding: 8px 12px;
+      border-radius: 10px;
+      box-shadow: var(--shadow);
+      font-size: clamp(16px, 3vw, 20px);
+      letter-spacing: .5px;
+      text-align: center;
+    }
+
+    .btn, .select {
+      background: linear-gradient(180deg, #111827, #0b1220);
+      color: var(--text);
+      border: 1px solid #1f2a44;
+      border-radius: 10px;
+      padding: 8px 10px;
+      font: inherit;
+      cursor: pointer;
+      box-shadow: var(--shadow);
+    }
+
+    .btn:hover { filter: brightness(1.1); }
+    .btn:active { transform: translateY(1px); }
+    .select { min-width: 160px; }
+
+    .controls {
+      display: grid;
+      grid-template-areas:
+        ". up ."
+        "left ok right"
+        ". down .";
+      gap: 10px;
+      margin: 6px 0 0;
+      touch-action: manipulation;
+      user-select: none;
+    }
+
+    .pad {
+      width: 64px; height: 64px;
+      border-radius: 14px;
+      background: linear-gradient(180deg, #0f172a, #0b1220);
+      border: 1px solid #1f2a44;
+      display: grid; place-items: center;
+      box-shadow: var(--shadow);
+      font-weight: 700;
+    }
+
+    .pad:active { outline: 2px solid rgba(110,231,255,.35); }
+    .up { grid-area: up; } .down { grid-area: down; }
+    .left { grid-area: left; } .right { grid-area: right; }
+    .ok { grid-area: ok; }
+
+    .overlay {
+      position: absolute; inset: 0; display: grid; place-items: center;
+      background: rgba(6, 8, 12, 0.75);
+      backdrop-filter: blur(2px);
+      border-radius: var(--radius);
+    }
+
+    .card {
+      background: linear-gradient(180deg, #0f172a, #0b1220);
+      border: 1px solid #213250;
+      border-radius: 14px;
+      padding: 14px;
+      width: min(520px, 92vw);
+      box-shadow: var(--shadow);
+    }
+
+    .card h2 { margin: 0 0 6px; font-size: 18px; }
+    .card p { margin: 4px 0 10px; color: var(--muted); }
+    .row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+
+    .notice { 
+      font-size: 12px; 
+      color: var(--muted); 
+      margin-top: 8px; 
+      text-align: center; 
+    }
+
+    .dot { 
+      display:inline-block; 
+      width:10px; 
+      height:10px; 
+      border-radius:3px; 
+      background: var(--accent); 
+      box-shadow:0 0 12px var(--accent); 
+    }
+
+    @media (max-width: 480px) {
+      .panel { grid-template-columns: 1fr; gap: 8px; }
+      header { grid-template-columns: 1fr; }
+    }
+
+    .hidden { display: none !important; }
+  </style>
 </head>
 <body>
-    <div id="game-container">
-        <h1>Математическая Змейка</h1>
-        
-        <div id="menu" class="screen">
-            <div class="menu-section">
-                <h3>Выберите операцию (1-5):</h3>
-                <div class="options">
-                    <div class="option" data-key="1">1. Сложение (+)</div>
-                    <div class="option" data-key="2">2. Вычитание (-)</div>
-                    <div class="option" data-key="3">3. Умножение (*)</div>
-                    <div class="option" data-key="4">4. Деление (/)</div>
-                    <div class="option" data-key="5">5. Остаток от деления (%)</div>
-                </div>
-            </div>
-            
-            <div class="menu-section">
-                <h3>Выберите уровень сложности (Q,W,E,R,T):</h3>
-                <div class="options">
-                    <div class="option" data-key="q">Q. Однозначные (1-9)</div>
-                    <div class="option" data-key="w">W. Двузначные (10-99)</div>
-                    <div class="option" data-key="e">E. Трёхзначные (100-999)</div>
-                    <div class="option" data-key="r">R. Четырёхзначные (1000-9999)</div>
-                    <div class="option" data-key="t">T. Смешанные (1-9999)</div>
-                </div>
-            </div>
-            
-            <div class="menu-section">
-                <h3>Цветовой режим (C):</h3>
-                <div class="options">
-                    <div class="option" data-key="c" id="color-mode-option">C. Разные цвета (синий/красный)</div>
-                </div>
-            </div>
-            
-            <div class="start-instruction">
-                <p>Нажмите ПРОБЕЛ для начала игры</p>
-                <button id="mobile-start-btn" class="mobile-only">Начать игру</button>
-            </div>
-        </div>
-        
-        <div id="game" class="screen hidden">
-            <div id="game-info">
-                <div id="expression">2 + 3 = ?</div>
-                <div id="score">Счёт: 0</div>
-            </div>
-            <canvas id="game-canvas" width="800" height="600"></canvas>
-            <div id="mobile-controls" class="mobile-only">
-                <div class="control-row">
-                    <button class="control-btn" data-direction="up">↑</button>
-                </div>
-                <div class="control-row">
-                    <button class="control-btn" data-direction="left">←</button>
-                    <button class="control-btn" data-direction="down">↓</button>
-                    <button class="control-btn" data-direction="right">→</button>
-                </div>
-            </div>
-            <div id="game-instructions">
-                ESC - в меню, WASD - управление
-            </div>
-        </div>
-        
-        <div id="game-over" class="screen hidden">
-            <h2>Игра окончена!</h2>
-            <div id="final-score">Ваш счёт: 0</div>
-            <p>Нажмите любую клавишу для возврата в меню</p>
-            <button id="mobile-menu-btn" class="mobile-only">Вернуться в меню</button>
-        </div>
+  <header>
+    <div class="hud" aria-label="Status left">
+      <div class="chip">Mode: <b id="modeChip">—</b></div>
+      <div class="chip">Level: <b id="levelChip">—</b></div>
     </div>
+    <h1>🐍 Snake × <span style="color:var(--accent)">Math</span></h1>
+    <div class="hud" aria-label="Status right">
+      <div class="chip">Score: <b id="scoreChip">0</b></div>
+      <div class="chip">Lives: <b id="livesChip">3</b></div>
+    </div>
+  </header>
+
+  <div class="wrap">
+    <div class="panel" role="group" aria-label="Expression & controls">
+      <button class="btn" id="menuBtn" title="Main menu">☰ Menu</button>
+      <div class="expr">Solve: <b id="exprText">—</b></div>
+      <button class="btn" id="pauseBtn" title="Pause/Resume">⏯ Pause</button>
+    </div>
+
+    <div class="board-wrap" id="boardWrap">
+      <canvas id="board" width="400" height="400" aria-label="Game board" tabindex="0"></canvas>
+
+      <!-- Main Menu Overlay -->
+      <div class="overlay hidden" id="menu">
+        <div class="card">
+          <h2>Start Game</h2>
+          <p>Pick a <b>mode</b> and <b>level</b>. All division problems are guaranteed to have whole-number results. Avoid walls and your own tail. Eat the <b>correct answer</b>; wrong answers cost a life.</p>
+          <div class="row">
+            <label>
+              <div style="margin-bottom:6px">Mode</div>
+              <select class="select" id="modeSelect">
+                <option value="add">Addition</option>
+                <option value="sub">Subtraction</option>
+                <option value="mul">Multiplication</option>
+                <option value="div">Division</option>
+                <option value="mix" selected>Mixed</option>
+              </select>
+            </label>
+            <label>
+              <div style="margin-bottom:6px">Level</div>
+              <select class="select" id="levelSelect">
+                <option value="easy">Easy (1–9)</option>
+                <option value="med">Medium (10–99)</option>
+                <option value="mix">Mixed (1–99)</option>
+                <option value="adv">Advanced (to 3 digits)</option>
+                <option value="exp" selected>Expert (fast)</option>
+              </select>
+            </label>
+          </div>
+          <div style="margin-top:10px;">
+            <label style="display:flex; align-items:center; gap:8px; margin-bottom:6px;">
+              <input type="checkbox" id="showHintsCheck" checked style="width:16px; height:16px;">
+              <span>Show correct answer hint (green glow)</span>
+            </label>
+            <label style="display:flex; align-items:center; gap:8px;">
+              <input type="checkbox" id="sandboxCheck" style="width:16px; height:16px;">
+              <span>Sandbox mode (infinite play, no level limits)</span>
+            </label>
+          </div>
+          <div style="display:flex; gap:8px; margin-top:10px;">
+            <button class="btn" id="startBtn">▶ Start</button>
+            <button class="btn" id="howBtn">❓ How to play</button>
+          </div>
+          <p class="notice">Controls: Arrow keys / WASD • On-screen D‑pad • Swipe. <span class="dot"></span></p>
+        </div>
+      </div>
+
+      <!-- Info Overlay -->
+      <div class="overlay hidden" id="info">
+        <div class="card">
+          <h2>How to play</h2>
+          <p>Classic snake rules. The board shows several <b>answer tiles</b>. Solve the expression at the top and eat the <b>correct answer</b>. Eating a wrong answer loses a life. Complete <b>10 correct answers</b> to finish your current level and pick a new one.</p>
+          <div style="display:flex; gap:8px; margin-top:8px;">
+            <button class="btn" id="resumeFromInfo">OK</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Level Complete Overlay -->
+      <div class="overlay hidden" id="levelDone">
+        <div class="card">
+          <h2>Level Complete 🎉</h2>
+          <p>You solved <b id="solvedCount">0</b> expressions! Choose another mode/level or continue.</p>
+          <div style="display:flex; gap:8px; margin-top:8px; flex-wrap: wrap;">
+            <button class="btn" id="continueBtn">Continue</button>
+            <button class="btn" id="changeBtn">Change Mode/Level</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Game Over Overlay -->
+      <div class="overlay hidden" id="gameOver">
+        <div class="card">
+          <h2>Game Over 💀</h2>
+          <p>Your score: <b id="finalScore">0</b>. Try again?</p>
+          <div style="display:flex; gap:8px; margin-top:8px; flex-wrap: wrap;">
+            <button class="btn" id="retryBtn">↻ Retry</button>
+            <button class="btn" id="goMenuBtn">☰ Menu</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="controls" aria-label="Mobile controls">
+      <button class="pad up" data-dir="up">▲</button>
+      <button class="pad left" data-dir="left">◀</button>
+      <button class="pad ok" id="okBtn">⏯</button>
+      <button class="pad right" data-dir="right">▶</button>
+      <button class="pad down" data-dir="down">▼</button>
+    </div>
+
+    <div class="notice">Tip: In <b>Expert</b>, speed increases after each correct answer.</div>
+  </div>
+
+  <script>
+    class SnakeMathGame {
+      constructor() {
+        this.GRID_SIZE = 20;
+        this.TILE_SIZE = 20;
+        this.CANVAS_SIZE = this.GRID_SIZE * this.TILE_SIZE;
+        this.TARGET_SOLVES = 10;
+        this.START_LIVES = 3;
+        
+        this.canvas = document.getElementById('board');
+        this.ctx = this.canvas.getContext('2d');
+        this.canvas.width = this.CANVAS_SIZE;
+        this.canvas.height = this.CANVAS_SIZE;
+        this.ctx.imageSmoothingEnabled = false;
+
+        // Game state
+        this.gameState = {
+          running: false,
+          paused: false,
+          snake: [],
+          direction: { x: 1, y: 0 },
+          nextDirection: { x: 1, y: 0 },
+          growQueue: 0,
+          answerTiles: new Map(),
+          currentAnswer: 0,
+          currentExpression: '—',
+          mode: 'mix',
+          level: 'exp',
+          score: 0,
+          lives: this.START_LIVES,
+          solved: 0,
+          tickInterval: 140,
+          gameTimer: null,
+          flashCounter: 0,
+          showHints: true,
+          sandboxMode: false,
+          tilePositions: [] // Fixed positions for answer tiles
+        };
+
+        this.levels = {
+          easy: { add: [1, 9], sub: [1, 9], mul: [1, 9], div: [1, 9], q: [1, 9] },
+          med: { add: [10, 99], sub: [10, 99], mul: [2, 12], div: [2, 20], q: [2, 12] },
+          mix: { add: [1, 99], sub: [1, 99], mul: [2, 15], div: [2, 20], q: [2, 15] },
+          adv: { add: [50, 999], sub: [50, 999], mul: [10, 99], div: [3, 60], q: [3, 25] },
+          exp: { add: [1, 999], sub: [1, 999], mul: [5, 99], div: [3, 80], q: [3, 30] }
+        };
+
+        this.init();
+      }
+
+      init() {
+        this.setupEventListeners();
+        this.loadSettings();
+        this.showMenu();
+        this.draw();
+      }
+
+      setupEventListeners() {
+        // Button events
+        document.getElementById('menuBtn').onclick = () => this.showMenu();
+        document.getElementById('pauseBtn').onclick = () => this.togglePause();
+        document.getElementById('howBtn').onclick = () => this.showInfo();
+        document.getElementById('resumeFromInfo').onclick = () => this.hideInfo();
+        document.getElementById('startBtn').onclick = () => this.startFromMenu();
+        document.getElementById('continueBtn').onclick = () => { this.hideLevelDone(); this.resume(); };
+        document.getElementById('changeBtn').onclick = () => { this.hideLevelDone(); this.showMenu(); };
+        document.getElementById('retryBtn').onclick = () => { this.hideGameOver(); this.startGame(); };
+        document.getElementById('goMenuBtn').onclick = () => { this.hideGameOver(); this.showMenu(); };
+        document.getElementById('okBtn').onclick = () => this.togglePause();
+
+        // Direction controls
+        document.querySelectorAll('.pad[data-dir]').forEach(btn => {
+          btn.onclick = () => this.setDirection(btn.getAttribute('data-dir'));
+        });
+
+        // Keyboard controls
+        document.addEventListener('keydown', (e) => {
+          if (["ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight", " "].includes(e.key)) {
+            e.preventDefault();
+          }
+          
+          if (e.key === ' ') {
+            this.togglePause();
+            return;
+          }
+
+          const keyMap = {
+            ArrowUp: 'up', ArrowDown: 'down', ArrowLeft: 'left', ArrowRight: 'right',
+            w: 'up', W: 'up', s: 'down', S: 'down',
+            a: 'left', A: 'left', d: 'right', D: 'right'
+          };
+
+          if (keyMap[e.key]) {
+            this.setDirection(keyMap[e.key]);
+          }
+        });
+
+        // Touch controls
+        let touchStart = null;
+        this.canvas.addEventListener('touchstart', (e) => {
+          if (e.touches[0]) {
+            touchStart = { x: e.touches[0].clientX, y: e.touches[0].clientY };
+          }
+        }, { passive: true });
+
+        this.canvas.addEventListener('touchend', (e) => {
+          if (!touchStart) return;
+          
+          const touch = e.changedTouches[0];
+          const dx = touch.clientX - touchStart.x;
+          const dy = touch.clientY - touchStart.y;
+          const absX = Math.abs(dx);
+          const absY = Math.abs(dy);
+          
+          if (Math.max(absX, absY) > 24) {
+            if (absX > absY) {
+              this.setDirection(dx > 0 ? 'right' : 'left');
+            } else {
+              this.setDirection(dy > 0 ? 'down' : 'up');
+            }
+          }
+          touchStart = null;
+        }, { passive: true });
+      }
+
+      // Game state management
+      showMenu() { 
+        document.getElementById('menu').classList.remove('hidden'); 
+        this.pause(); 
+      }
+      
+      hideMenu() { 
+        document.getElementById('menu').classList.add('hidden'); 
+      }
+      
+      showInfo() { 
+        document.getElementById('info').classList.remove('hidden'); 
+        this.pause(); 
+      }
+      
+      hideInfo() { 
+        document.getElementById('info').classList.add('hidden'); 
+        this.resume(); 
+      }
+      
+      showLevelDone() { 
+        document.getElementById('levelDone').classList.remove('hidden'); 
+        this.pause(); 
+      }
+      
+      hideLevelDone() { 
+        document.getElementById('levelDone').classList.add('hidden'); 
+      }
+      
+      showGameOver() { 
+        document.getElementById('gameOver').classList.remove('hidden'); 
+        this.pause(); 
+      }
+      
+      hideGameOver() { 
+        document.getElementById('gameOver').classList.add('hidden'); 
+      }
+
+      startFromMenu() {
+        this.gameState.mode = document.getElementById('modeSelect').value;
+        this.gameState.level = document.getElementById('levelSelect').value;
+        this.gameState.showHints = document.getElementById('showHintsCheck').checked;
+        this.gameState.sandboxMode = document.getElementById('sandboxCheck').checked;
+        this.saveSettings();
+        this.hideMenu();
+        this.startGame();
+      }
+
+      startGame() {
+        this.gameState.score = 0;
+        this.gameState.lives = this.START_LIVES;
+        this.gameState.solved = 0;
+        this.gameState.flashCounter = 0;
+        this.setupSpeed();
+        this.resetSnake();
+        this.spawnProblem();
+        this.updateHUD();
+        this.resume();
+      }
+
+      setupSpeed() {
+        const speedMap = { 
+          easy: 160, med: 150, mix: 145, adv: 140, exp: 130 
+        };
+        this.gameState.tickInterval = speedMap[this.gameState.level] || 140;
+      }
+
+      resetSnake() {
+        const center = Math.floor(this.GRID_SIZE / 2);
+        this.gameState.snake = [
+          { x: center, y: center },
+          { x: center - 1, y: center },
+          { x: center - 2, y: center }
+        ];
+        this.gameState.direction = { x: 1, y: 0 };
+        this.gameState.nextDirection = { x: 1, y: 0 };
+        this.gameState.growQueue = 0;
+      }
+
+      togglePause() {
+        this.gameState.paused ? this.resume() : this.pause();
+      }
+
+      pause() {
+        this.gameState.paused = true;
+        this.gameState.running = false;
+        if (this.gameState.gameTimer) {
+          clearInterval(this.gameState.gameTimer);
+          this.gameState.gameTimer = null;
+        }
+      }
+
+      resume() {
+        const allOverlaysHidden = ['menu', 'info', 'gameOver', 'levelDone']
+          .every(id => document.getElementById(id).classList.contains('hidden'));
+        
+        if (allOverlaysHidden) {
+          this.gameState.paused = false;
+          this.runGameLoop();
+        }
+      }
+
+      runGameLoop() {
+        if (this.gameState.gameTimer) {
+          clearInterval(this.gameState.gameTimer);
+        }
+        this.gameState.running = true;
+        this.gameState.gameTimer = setInterval(() => this.tick(), this.gameState.tickInterval);
+      }
+
+      setDirection(dirString) {
+        const dirMap = {
+          up: { x: 0, y: -1 },
+          down: { x: 0, y: 1 },
+          left: { x: -1, y: 0 },
+          right: { x: 1, y: 0 }
+        };
+
+        const newDir = dirMap[dirString];
+        if (!newDir) return;
+
+        // Prevent reversing into self
+        if (this.gameState.snake.length > 1 && 
+            newDir.x === -this.gameState.direction.x && 
+            newDir.y === -this.gameState.direction.y) {
+          return;
+        }
+
+        this.gameState.nextDirection = newDir;
+      }
+
+      // Math problem generation
+      randomInt(min, max) {
+        return Math.floor(Math.random() * (max - min + 1)) + min;
+      }
+
+      randomChoice(array) {
+        return array[Math.floor(Math.random() * array.length)];
+      }
+
+      generateProblem() {
+        const levelConfig = this.levels[this.gameState.level] || this.levels.mix;
+        const mode = this.gameState.mode === 'mix' 
+          ? this.randomChoice(['add', 'sub', 'mul', 'div']) 
+          : this.gameState.mode;
+
+        let a, b, answer, operator;
+
+        switch (mode) {
+          case 'add':
+            a = this.randomInt(...levelConfig.add);
+            b = this.randomInt(...levelConfig.add);
+            answer = a + b;
+            operator = '+';
+            break;
+          case 'sub':
+            a = this.randomInt(...levelConfig.sub);
+            b = this.randomInt(...levelConfig.sub);
+            if (b > a) [a, b] = [b, a];
+            answer = a - b;
+            operator = '−';
+            break;
+          case 'mul':
+            a = this.randomInt(...levelConfig.mul);
+            b = this.randomInt(...levelConfig.mul);
+            answer = a * b;
+            operator = '×';
+            break;
+          case 'div':
+            b = this.randomInt(...levelConfig.div);
+            const quotient = this.randomInt(...levelConfig.q);
+            a = b * quotient;
+            answer = quotient;
+            operator = '÷';
+            break;
+        }
+
+        return { a, b, operator, answer, expression: `${a} ${operator} ${b}` };
+      }
+
+      spawnProblem() {
+        const problem = this.generateProblem();
+        this.gameState.currentAnswer = problem.answer;
+        this.gameState.currentExpression = problem.expression;
+
+        // Only generate new positions if we don't have them or all tiles were consumed
+        if (this.gameState.tilePositions.length === 0 || this.gameState.answerTiles.size === 0) {
+          this.generateTilePositions();
+        }
+
+        // If we have existing tiles, just update the values at current positions
+        if (this.gameState.answerTiles.size > 0) {
+          // Get current positions that still have tiles
+          const currentPositions = Array.from(this.gameState.answerTiles.keys());
+          
+          // Clear current values
+          this.gameState.answerTiles.clear();
+          
+          // Place correct answer at first available position
+          if (currentPositions.length > 0) {
+            // Shuffle positions so correct answer appears randomly
+            const shuffledPositions = [...currentPositions];
+            for (let i = shuffledPositions.length - 1; i > 0; i--) {
+              const j = Math.floor(Math.random() * (i + 1));
+              [shuffledPositions[i], shuffledPositions[j]] = [shuffledPositions[j], shuffledPositions[i]];
+            }
+            
+            this.gameState.answerTiles.set(shuffledPositions[0], problem.answer);
+            
+            // Generate distractors for remaining positions
+            const distractors = this.generateDistractors(problem.answer, problem.operator);
+            const distractorArray = Array.from(distractors);
+            
+            for (let i = 1; i < shuffledPositions.length && i - 1 < distractorArray.length; i++) {
+              this.gameState.answerTiles.set(shuffledPositions[i], distractorArray[i - 1]);
+            }
+          }
+        } else {
+          // Generate new tiles from scratch
+          // Place correct answer at first position
+          if (this.gameState.tilePositions.length > 0) {
+            const correctPos = this.gameState.tilePositions[0];
+            this.gameState.answerTiles.set(correctPos, problem.answer);
+          }
+
+          // Generate distractors for remaining positions
+          const distractors = this.generateDistractors(problem.answer, problem.operator);
+          const distractorArray = Array.from(distractors);
+          
+          for (let i = 0; i < distractorArray.length && i + 1 < this.gameState.tilePositions.length; i++) {
+            const pos = this.gameState.tilePositions[i + 1];
+            this.gameState.answerTiles.set(pos, distractorArray[i]);
+          }
+        }
+
+        this.updateHUD();
+      }
+
+      generateDistractors(baseAnswer, operator) {
+        const distractors = new Set();
+        const variations = [1, 2, 3, 5, 10, this.randomInt(2, 12)];
+
+        for (let attempts = 0; attempts < 100 && distractors.size < 3; attempts++) {
+          const variation = this.randomChoice(variations);
+          let distractor = Math.random() < 0.5 ? baseAnswer + variation : baseAnswer - variation;
+
+          if (operator === '×' || operator === '÷') {
+            if (Math.random() < 0.5) {
+              const factor = Math.random() < 0.5 ? 2 : 0.5;
+              distractor = Math.round(baseAnswer * factor);
+            }
+          }
+
+          distractor = Math.abs(Math.round(distractor));
+          if (distractor !== baseAnswer && distractor > 0 && distractor < 100000) {
+            distractors.add(distractor);
+          }
+        }
+
+        return distractors;
+      }
+
+      generateTilePositions() {
+        this.gameState.tilePositions = [];
+        const occupiedPositions = new Set(
+          this.gameState.snake.map(seg => `${seg.x},${seg.y}`)
+        );
+
+        // Generate 4 positions for tiles
+        for (let tileCount = 0; tileCount < 4; tileCount++) {
+          for (let attempts = 0; attempts < 200; attempts++) {
+            const x = this.randomInt(0, this.GRID_SIZE - 1);
+            const y = this.randomInt(0, this.GRID_SIZE - 1);
+            const key = `${x},${y}`;
+
+            if (!occupiedPositions.has(key) && !this.gameState.tilePositions.includes(key)) {
+              this.gameState.tilePositions.push(key);
+              break;
+            }
+          }
+        }
+
+        // Shuffle positions so correct answer isn't always in the same spot
+        for (let i = this.gameState.tilePositions.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [this.gameState.tilePositions[i], this.gameState.tilePositions[j]] = 
+          [this.gameState.tilePositions[j], this.gameState.tilePositions[i]];
+        }
+      }
+
+      // Game logic
+      tick() {
+        if (this.gameState.paused || !this.gameState.running) return;
+
+        this.gameState.direction = { ...this.gameState.nextDirection };
+        const head = this.gameState.snake[0];
+        if (!head) return;
+
+        const newX = head.x + this.gameState.direction.x;
+        const newY = head.y + this.gameState.direction.y;
+
+        // Wall collision
+        if (newX < 0 || newY < 0 || newX >= this.GRID_SIZE || newY >= this.GRID_SIZE) {
+          this.loseLife('wall');
+          return;
+        }
+
+        // Self collision
+        if (this.gameState.snake.some(segment => segment.x === newX && segment.y === newY)) {
+          this.loseLife('self');
+          return;
+        }
+
+        // Move snake
+        this.gameState.snake.unshift({ x: newX, y: newY });
+
+        // Check for answer tile collision
+        const tileKey = `${newX},${newY}`;
+        let ateCorrectAnswer = false;
+
+        if (this.gameState.answerTiles.has(tileKey)) {
+          const tileValue = this.gameState.answerTiles.get(tileKey);
+          
+          if (tileValue === this.gameState.currentAnswer) {
+            ateCorrectAnswer = true;
+            this.gameState.score += 10;
+            this.gameState.solved += 1;
+            this.gameState.growQueue += 1;
+
+            // Speed increase for expert mode
+            if (this.gameState.level === 'exp' && this.gameState.tickInterval > 70) {
+              this.gameState.tickInterval = Math.max(70, this.gameState.tickInterval - 3);
+              this.runGameLoop();
+            }
+
+            // Check for level completion (skip in sandbox mode)
+            if (!this.gameState.sandboxMode && this.gameState.solved >= this.TARGET_SOLVES) {
+              this.updateHUD();
+              this.showLevelDone();
+              return;
+            }
+          } else {
+            this.loseLife('wrong');
+            return;
+          }
+
+          this.gameState.answerTiles.delete(tileKey);
+          
+          // Check if all tiles are consumed - if so, generate new problem with new tiles
+          if (this.gameState.answerTiles.size === 0) {
+            this.gameState.tilePositions = [];
+            this.spawnProblem();
+          } else if (ateCorrectAnswer) {
+            // If we ate correct answer but tiles remain, just update values
+            this.spawnProblem();
+          }
+        }
+
+        // Handle snake growth
+        if (ateCorrectAnswer || this.gameState.growQueue > 0) {
+          if (!ateCorrectAnswer) this.gameState.growQueue--;
+        } else {
+          this.gameState.snake.pop();
+        }
+
+        this.updateHUD();
+        this.draw();
+      }
+
+      loseLife(reason) {
+        this.pause();
+        this.gameState.lives -= 1;
+        this.gameState.flashCounter = 6;
+
+        if (this.gameState.lives <= 0) {
+          this.updateHUD();
+          this.draw();
+          this.showGameOver();
+          return;
+        }
+
+        this.updateHUD();
+        this.resetSnake();
+
+        // Clear tiles that overlap with reset snake
+        this.gameState.snake.forEach(segment => {
+          const key = `${segment.x},${segment.y}`;
+          if (this.gameState.answerTiles.has(key)) {
+            this.gameState.answerTiles.delete(key);
+          }
+        });
+
+        this.draw();
+
+        // Resume after delay
+        setTimeout(() => {
+          if (this.gameState.lives > 0) {
+            this.resume();
+          }
+        }, 1000);
+      }
+
+      // Rendering
+      draw() {
+        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+
+        // Flash effect
+        if (this.gameState.flashCounter > 0) {
+          this.ctx.fillStyle = `rgba(239,68,68, ${0.08 + this.gameState.flashCounter * 0.02})`;
+          this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
+          this.gameState.flashCounter--;
+        }
+
+        // Draw answer tiles
+        this.ctx.textAlign = 'center';
+        this.ctx.textBaseline = 'middle';
+        this.ctx.font = '16px ui-monospace, Menlo, Consolas, monospace';
+
+        this.gameState.answerTiles.forEach((value, key) => {
+          const [x, y] = key.split(',').map(Number);
+          const pixelX = x * this.TILE_SIZE + this.TILE_SIZE / 2;
+          const pixelY = y * this.TILE_SIZE + this.TILE_SIZE / 2;
+
+          const isCorrect = value === this.gameState.currentAnswer;
+          
+          // Tile background - show hint only if enabled
+          const showHint = this.gameState.showHints && isCorrect;
+          this.ctx.fillStyle = showHint ? 'rgba(34,197,94,.12)' : 'rgba(110,231,255,.10)';
+          this.ctx.fillRect(x * this.TILE_SIZE + 3, y * this.TILE_SIZE + 3, 
+                           this.TILE_SIZE - 6, this.TILE_SIZE - 6);
+          
+          // Tile border - show hint only if enabled
+          this.ctx.strokeStyle = showHint ? 'rgba(34,197,94,.45)' : 'rgba(110,231,255,.25)';
+          this.ctx.lineWidth = 1.2;
+          this.ctx.strokeRect(x * this.TILE_SIZE + 3.5, y * this.TILE_SIZE + 3.5, 
+                            this.TILE_SIZE - 7, this.TILE_SIZE - 7);
+          
+          // Number text - show hint only if enabled
+          this.ctx.fillStyle = showHint ? '#22c55e' : '#9bd9ff';
+          this.ctx.fillText(String(value), pixelX, pixelY);
+        });
+
+        // Draw snake
+        for (let i = this.gameState.snake.length - 1; i >= 0; i--) {
+          const segment = this.gameState.snake[i];
+          const isHead = i === 0;
+          const color = isHead ? '#6ee7ff' : '#94a3b8';
+          const padding = isHead ? 2 : 3;
+
+          this.ctx.fillStyle = color;
+          this.ctx.fillRect(segment.x * this.TILE_SIZE + padding, 
+                           segment.y * this.TILE_SIZE + padding,
+                           this.TILE_SIZE - 2 * padding, 
+                           this.TILE_SIZE - 2 * padding);
+          
+          this.ctx.strokeStyle = '#1f2a44';
+          this.ctx.lineWidth = 1;
+          this.ctx.strokeRect(segment.x * this.TILE_SIZE + padding + 0.5,
+                            segment.y * this.TILE_SIZE + padding + 0.5,
+                            this.TILE_SIZE - 2 * padding - 1,
+                            this.TILE_SIZE - 2 * padding - 1);
+        }
+
+        // Draw snake eyes
+        if (this.gameState.snake.length > 0) {
+          const head = this.gameState.snake[0];
+          this.ctx.fillStyle = '#0b1220';
+          
+          const eyeX = head.x * this.TILE_SIZE + 
+                      (this.gameState.direction.x !== 0 ? 
+                       (this.gameState.direction.x > 0 ? this.TILE_SIZE - 7 : 7) : 
+                       this.TILE_SIZE / 2);
+          
+          const eyeY1 = head.y * this.TILE_SIZE + 
+                       (this.gameState.direction.y !== 0 ? 
+                        (this.gameState.direction.y > 0 ? this.TILE_SIZE - 7 : 7) : 
+                        this.TILE_SIZE / 2 - 4);
+          
+          const eyeY2 = head.y * this.TILE_SIZE + 
+                       (this.gameState.direction.y !== 0 ? 
+                        (this.gameState.direction.y > 0 ? this.TILE_SIZE - 7 : 7) : 
+                        this.TILE_SIZE / 2 + 4);
+
+          this.ctx.fillRect(eyeX - 2, eyeY1 - 2, 4, 4);
+          this.ctx.fillRect(eyeX - 2, eyeY2 - 2, 4, 4);
+        }
+
+        // Draw border glow
+        this.ctx.strokeStyle = 'rgba(110,231,255,.25)';
+        this.ctx.lineWidth = 2;
+        this.ctx.strokeRect(1, 1, this.canvas.width - 2, this.canvas.height - 2);
+      }
+
+      // UI updates
+      updateHUD() {
+        const modeNames = {
+          add: 'Addition', sub: 'Subtraction', mul: 'Multiplication', 
+          div: 'Division', mix: 'Mixed'
+        };
+        
+        const levelNames = {
+          easy: 'Easy', med: 'Medium', mix: 'Mixed', 
+          adv: 'Advanced', exp: 'Expert'
+        };
+
+        document.getElementById('modeChip').textContent = modeNames[this.gameState.mode] || 'Mixed';
+        document.getElementById('levelChip').textContent = levelNames[this.gameState.level] || '—';
+        document.getElementById('scoreChip').textContent = this.gameState.score;
+        document.getElementById('livesChip').textContent = this.gameState.lives;
+        document.getElementById('exprText').textContent = this.gameState.currentExpression;
+        document.getElementById('solvedCount').textContent = this.gameState.solved;
+        document.getElementById('finalScore').textContent = this.gameState.score;
+      }
+
+      // Settings management
+      loadSettings() {
+        const savedMode = localStorage.getItem('snakemath.mode');
+        const savedLevel = localStorage.getItem('snakemath.level');
+        
+        if (savedMode) document.getElementById('modeSelect').value = savedMode;
+        if (savedLevel) document.getElementById('levelSelect').value = savedLevel;
+      }
+
+      saveSettings() {
+        localStorage.setItem('snakemath.mode', this.gameState.mode);
+        localStorage.setItem('snakemath.level', this.gameState.level);
+      }
+    }
+
+    // Initialize the game
+    const game = new SnakeMathGame();
     
-    <script src="script.js"></script>
+    // Expose for debugging
+    window.SnakeMath = game;
+  </script>
 </body>
 </html>
