@@ -237,6 +237,7 @@
     <h1>🐍 Snake × <span style="color:var(--accent)">Math</span></h1>
     <div class="hud" aria-label="Status right">
       <div class="chip">Score: <b id="scoreChip">0</b></div>
+      <div class="chip hidden" id="timeChipContainer">Time: <b id="timeChip">—</b></div>
       <div class="chip">Lives: <b id="livesChip">3</b></div>
     </div>
   </header>
@@ -282,6 +283,10 @@
             <label style="display:flex; align-items:center; gap:8px; margin-bottom:6px;">
               <input type="checkbox" id="showHintsCheck" checked style="width:16px; height:16px;">
               <span>Show correct answer hint (green glow)</span>
+            </label>
+            <label style="display:flex; align-items:center; gap:8px; margin-bottom:6px;">
+              <input type="checkbox" id="timerCheck" checked style="width:16px; height:16px;">
+              <span>Enable level timer</span>
             </label>
             <label style="display:flex; align-items:center; gap:8px;">
               <input type="checkbox" id="sandboxCheck" style="width:16px; height:16px;">
@@ -379,15 +384,18 @@
           flashCounter: 0,
           showHints: true,
           sandboxMode: false,
+          timerEnabled: true,
+          timeRemaining: 0,
+          timerIntervalId: null,
           tilePositions: [] // Fixed positions for answer tiles
         };
 
         this.levels = {
-          easy: { add: [1, 9], sub: [1, 9], mul: [1, 9], div: [1, 9], q: [1, 9] },
-          med: { add: [10, 99], sub: [10, 99], mul: [2, 12], div: [2, 20], q: [2, 12] },
-          mix: { add: [1, 99], sub: [1, 99], mul: [2, 15], div: [2, 20], q: [2, 15] },
-          adv: { add: [50, 999], sub: [50, 999], mul: [10, 99], div: [3, 60], q: [3, 25] },
-          exp: { add: [1, 999], sub: [1, 999], mul: [5, 99], div: [3, 80], q: [3, 30] }
+          easy: { add: [1, 9], sub: [1, 9], mul: [1, 9], div: [1, 9], q: [1, 9], time: 120, timeBonus: 10 },
+          med: { add: [10, 99], sub: [10, 99], mul: [2, 12], div: [2, 20], q: [2, 12], time: 100, timeBonus: 8 },
+          mix: { add: [1, 99], sub: [1, 99], mul: [2, 15], div: [2, 20], q: [2, 15], time: 90, timeBonus: 7 },
+          adv: { add: [50, 999], sub: [50, 999], mul: [10, 99], div: [3, 60], q: [3, 25], time: 75, timeBonus: 6 },
+          exp: { add: [1, 999], sub: [1, 999], mul: [5, 99], div: [3, 80], q: [3, 30], time: 60, timeBonus: 5 }
         };
 
         this.init();
@@ -518,6 +526,7 @@
         this.gameState.level = document.getElementById('levelSelect').value;
         this.gameState.showHints = document.getElementById('showHintsCheck').checked;
         this.gameState.sandboxMode = document.getElementById('sandboxCheck').checked;
+        this.gameState.timerEnabled = document.getElementById('timerCheck').checked;
         this.saveSettings();
         this.hideMenu();
         this.startGame();
@@ -533,6 +542,12 @@
         this.spawnProblem();
         this.updateHUD();
         this.resume();
+        
+        if (this.gameState.timerEnabled) {
+          const levelConfig = this.levels[this.gameState.level] || this.levels.mix;
+          this.gameState.timeRemaining = levelConfig.time;
+          this.startTimer();
+        }
       }
 
       setupSpeed() {
@@ -565,6 +580,7 @@
           clearInterval(this.gameState.gameTimer);
           this.gameState.gameTimer = null;
         }
+        this.stopTimer();
       }
 
       resume() {
@@ -574,6 +590,7 @@
         if (allOverlaysHidden) {
           this.gameState.paused = false;
           this.runGameLoop();
+          this.startTimer();
         }
       }
 
@@ -804,6 +821,12 @@
             this.gameState.solved += 1;
             this.gameState.growQueue += 1;
 
+            // Add time bonus if timer is enabled
+            if (this.gameState.timerEnabled) {
+              const levelConfig = this.levels[this.gameState.level] || this.levels.mix;
+              this.gameState.timeRemaining += levelConfig.timeBonus || 5;
+            }
+
             // Speed increase for expert mode
             if (this.gameState.level === 'exp' && this.gameState.tickInterval > 70) {
               this.gameState.tickInterval = Math.max(70, this.gameState.tickInterval - 3);
@@ -987,20 +1010,56 @@
         document.getElementById('exprText').textContent = this.gameState.currentExpression;
         document.getElementById('solvedCount').textContent = this.gameState.solved;
         document.getElementById('finalScore').textContent = this.gameState.score;
+
+        const timeChipContainer = document.getElementById('timeChipContainer');
+        if (this.gameState.timerEnabled) {
+          timeChipContainer.classList.remove('hidden');
+          const minutes = Math.floor(this.gameState.timeRemaining / 60);
+          const seconds = this.gameState.timeRemaining % 60;
+          document.getElementById('timeChip').textContent = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+        } else {
+          timeChipContainer.classList.add('hidden');
+        }
       }
 
       // Settings management
       loadSettings() {
         const savedMode = localStorage.getItem('snakemath.mode');
         const savedLevel = localStorage.getItem('snakemath.level');
+        const savedTimer = localStorage.getItem('snakemath.timer');
         
         if (savedMode) document.getElementById('modeSelect').value = savedMode;
         if (savedLevel) document.getElementById('levelSelect').value = savedLevel;
+        if (savedTimer !== null) document.getElementById('timerCheck').checked = savedTimer === 'true';
       }
 
       saveSettings() {
         localStorage.setItem('snakemath.mode', this.gameState.mode);
         localStorage.setItem('snakemath.level', this.gameState.level);
+        localStorage.setItem('snakemath.timer', this.gameState.timerEnabled);
+      }
+
+      // Timer logic
+      startTimer() {
+        if (!this.gameState.timerEnabled || this.gameState.timerIntervalId || this.gameState.paused) return;
+        this.gameState.timerIntervalId = setInterval(() => this.updateTimer(), 1000);
+      }
+
+      stopTimer() {
+        if (this.gameState.timerIntervalId) {
+          clearInterval(this.gameState.timerIntervalId);
+          this.gameState.timerIntervalId = null;
+        }
+      }
+
+      updateTimer() {
+        if (this.gameState.timeRemaining > 0) {
+          this.gameState.timeRemaining--;
+          this.updateHUD();
+        } else {
+          this.stopTimer();
+          this.loseLife('time');
+        }
       }
     }
 

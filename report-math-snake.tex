@@ -1,0 +1,181 @@
+\documentclass{article}
+\usepackage[OT2, T2A, T1]{fontenc}
+\usepackage[russian]{babel}
+\usepackage{graphicx}
+\usepackage{geometry}
+\geometry{margin=2cm}
+
+% PLEASE NOTICE THAT, ACCORDING TO YOUR TITLE LENGTH, YOU MAY WANT TO ADAPT THE VSPACEs, SO THAT THE FINAL PAGE WILL BE PLEASING YOUR TASTE!%
+
+\title{TitlePage}
+\author{Your Name}
+\date{Put the date}
+
+\begin{document}
+
+\begin{titlepage}
+    \begin{center}
+            
+        \Huge
+        \textbf{КЫРГЫЗ-ТҮРК «МАНАС» УНИВЕРСИТЕТИ}
+            
+        \vspace{0.5cm}
+        \LARGE
+            ТАБИГЫЙ ИЛИМДЕР ФАКУЛЬТЕТИ
+        
+        %\vspace{0.5cm}
+        \large
+            %Колдонмо математика жана информатика бөлүмү
+            
+        \vspace{1cm}
+         
+        \includegraphics[width=0.5\textwidth]{Manas_logo.pdf}   
+       
+        
+            
+        \vspace{0.5cm}
+            
+        \Huge
+            \textbf{ТЕЗ ЭСЕПТӨӨ ОЮНУ}
+            
+        \vspace{2cm}
+            
+        
+     \end{center}  
+     
+\raggedright
+
+\begin{tabular}{@{}l l@{}}
+    \Large Студенттин аты-жөнү: & \Large Аскат Рахымбеков \\[1em]
+    \Large Студенттик №: & \Large 2312.01002 \\[1em]
+    \Large Бөлүмү: & \Large Колдонмо математика жана информатика \\
+\end{tabular}
+
+\Large
+    %Thesis written by:
+    %\vspace{0.125cm}\\
+\Large
+    %*Author name*
+    
+\end{titlepage}
+
+\section{Проекттин максаты жана жалпы мүнөздөмөсү}
+\begin{itemize}
+    \item Тез эсептөө оюнун иштеп чыгуу.
+    \item Бул проектте \textbf{«Math × Snake»} аттуу браузердик оюну ишке ашырат. Ал \textbf{JavaScript} (логика), \textbf{HTML5 Canvas} (графика) жана \textbf{CSS} (интерфейс) колдонуп жазылган. Оюндун идеясы — классикалык змейканын механикасын арифметикалык машыгуу менен айкалыштыруу: талаада кадимки «жемдин» ордуна бир нече \textbf{жооп варианттары} чыгат, ал эми үстүңкү панелде \textbf{математикалык туюнтма} көрсөтүлөт. Оюнчу змейканы туура \textbf{жоопту жегенге} багыттайт; туура эмес санды жесе — \textbf{жандары} кемийт.
+\end{itemize}
+
+Проект көңүл ачуу менен бирге \textbf{билим берүү} эффектин көздөйт: оюнчу оозеки эсепти, көңүл бурууну жана реакцияны оюндаштырылган форматта өнүктүрөт. Формат мектеп окуучуларына жана негизги арифметиканы кайталаган студенттерге ылайыктуу.
+
+\section{Интерфейс жана колдонуучу тажрыйбасы (UX)}
+Барак үч негизги зонадан турат:
+\begin{enumerate}
+  \item \textbf{Жогорку панель (Header / HUD):} Режим (\textit{Mode}), татаалдык (\textit{Level}), упай (\textit{Score}), жандар (\textit{Lives}) жана (эгер күйгүзүлсө) таймер көрсөтүлөт.
+  \item \textbf{Негизги талаа (Canvas):} 20×20 тордон турган оюн талаасында жылаан, жооп плиткалары жана декоративдик эффекттер чийилет. Үстүнө оверлейлер чыгышы мүмкүн: \textit{Main menu}, \textit{How to play}, \textit{Level Complete}, \textit{Game Over}.
+  \item \textbf{Башкаруу элементтери:} Меню, Пауза жана мобайл үчүн экрандык \textit{D-pad}.
+\end{enumerate}
+
+\section{Оюн логикасы}
+Логиканын өзөгү \texttt{SnakeMathGame} классына топтолгон.
+
+\subsection{Негизги параметрлер}
+\begin{itemize}
+  \item Тор өлчөмү: \textbf{20×20} клетка; клетка: \textbf{20 px}.
+  \item Деңгээлди аяктоо үчүн туура жооптор: \textbf{10}.
+  \item Баштапкы жандардын саны: \textbf{3}.
+\end{itemize}
+
+\subsection{Оюн режимдери}
+\begin{itemize}
+  \item \textbf{Addition} (кошуу), \textbf{Subtraction} (алып салуу), \textbf{Multiplication} (көбөйтүү), \textbf{Division} (калдыксыз бөлүү), \textbf{Mixed} (аралаш).
+\end{itemize}
+
+\subsection{Кыйынчылык деңгээлдери}
+Деңгээл диапазондорго жана ылдамдыкка таасир этет:
+\begin{itemize}
+  \item \textbf{Easy} — бир орундуу; \textbf{Medium} — эки орундуу; \textbf{Mixed} — 1–99 аралаш; \textbf{Advanced} — үч орундууга чейин; \textbf{Expert} — тез оюн, ар бир туура жооптон кийин \textbf{ылдамдануу}.
+\end{itemize}
+
+\subsection{Мисалдарды түзүү жана жооп плиткалары}
+\begin{itemize}
+  \item Деңгээл башталганда туюнтма (\(a{+}b\), \(a{-}b\), \(a{\times}b\), \(a{\div}b\)) түзүлөт. Бөлүүдө жыйынтык дайыма \textbf{бүтүн} болушу үчүн \(a = b \cdot q\) принципи колдонулат.
+  \item Талаада \textbf{4 позиция} тандалып, бирөөсүнө \textbf{туура жооп}, калгандарына \textbf{көңүлдү алаксытуучулар} коюлат.
+  \item \textbf{Туура жооп} жегенде: упай +10, жылаандын узундугу +1; таймер күйүк болсо — \textbf{убакыт бонусу}; \textbf{Expert} деңгээлинде тик-интервал кыскарат (оюн тездейт).
+  \item \textbf{Туура эмес} жооп — \textbf{жандардын саны -1}.
+  \item \textbf{Sandbox mode} күйүк болсо, 10 туура жооп чектөөсү жок; болбосо 10го жеткенде \textit{деңгээл ийгиликтүү бүтүрүлдү}.
+\end{itemize}
+
+\subsection{Аяктоо шарттары}
+\begin{itemize}
+  \item Жандардын саны 0 болгондо — \textit{Game Over}.
+  \item 10 туура жоопка жеткенде (Sandbox эмес) — \textit{Level Complete}.
+\end{itemize}
+
+\section{Башкаруу ыкмалары}
+\begin{itemize}
+  \item \textbf{Клавиатура:} жебелер же \textbf{WASD}; тескери бурулуп куйрукка урунбоо үчүн текшерүү бар.
+  \item \textbf{Экрандык D-pad:} мобайл үчүн чоң баскычтар.
+  \item \textbf{Сенсордук свайп}.
+\end{itemize}
+
+\section{Техникалык ишке ашыруу}
+\subsection{Графика жана рендер}
+\begin{itemize}
+  \item Чийүү \textbf{Canvas 2D API} аркылуу: тор, змейка, плиткалар, чек кырлары.
+  \item Плиткалар: тегиз фон, ичке чек, ортодо сан; туура жоопко (эгер күйүк) \textbf{жашыл} оттенок.
+  \item Змейканын башы өзгөчө түстө, «көздөрү» бар.
+\end{itemize}
+
+\subsection{Абал (state) жана цикл}
+\begin{itemize}
+  \item Абал \texttt{gameState} ичинде: позициялар, багыт, өсүү кезеги, таймерлер, упай/жашоо, учурдагы туюнтма/жооп, плиткалар, ылдамдык ж.б.
+  \item Негизги цикл — \texttt{setInterval} менен \texttt{tick()}; анда кыймыл, кагылышуу (дуң/өзү менен), плитка жеш, HUD жаңыртуу жүрөт.
+  \item Пауза/Resume логикасы оверлейлерге байланган; таймер секунданын ичинде кемийт, 0 болсо — \textbf{жашоо -1}.
+\end{itemize}
+
+\subsection{Параметрлер жана туруктуулук}
+\begin{itemize}
+  \item Колдонуучу тандоолору (\textit{mode}, \textit{level}, \textit{timerEnabled}) \texttt{localStorage} аркылуу сакталат/жүктөлөт.
+  \item Ылдамдык деңгээлге жараша \texttt{tickInterval} менен коюлат; \textbf{Expert} режиминде туура жооптон кийин динамикалык кыскартылат.
+\end{itemize}
+
+\section{Билим берүү багыты}
+Бул прототип классикалык механиканы \textbf{эсеп чыгаруучу машыгуу} менен бириктирет:
+\begin{itemize}
+  \item \textbf{Арифметика:} тез эсептөөнү машыктырат;
+  \item \textbf{Көп тапшырма:} туюнтманы чечип, ошол эле учурда навигация кылуу — көңүл топтоону/реакцияны бекемдейт;
+  \item \textbf{Оюндаштыруу:} мотивацияны жана үзгүлтүксүз машыгууну жогорулатат.
+\end{itemize}
+Колдонуу чөйрөлөрү: сабактарда, машыгуу сабатында, онлайн-курстарда кошумча курал.
+
+\section{Күчтүү жактар жана жакшыртуу сунуштары}
+\subsection*{Күчтүү жактар}
+\begin{itemize}
+  \item Толук \textbf{клиент-тарап} чечим; жайгаштыруу оңой.
+  \item ПК/мобайлда ыңгайлуу: клавиатура, \textit{D-pad}, свайп.
+  \item Ийкемдүү параметрлер: режимдер, деңгээлдер, таймер, подсказка, Sandbox.
+\end{itemize}
+
+\subsection*{Жакшыртуу идеялары}
+\begin{enumerate}
+  \item \textbf{Анимация цикли:} \texttt{setInterval} ордуна \texttt{requestAnimationFrame} — кадрлардын туруктуулугу/энергия үнөмдүүлүгү.
+  \item \textbf{Жооп генерациясы:} дистракторлорду семантикалык жакын кылуу (көбөйтүүдө факторлор, бөлүүдө бөлгүчтөр).
+  \item \textbf{Жогорку темалар:} пайыздар, даражалар, модуль, аралаш сандар (жөнөкөйдөштүрүлгөн режимде).
+  \item \textbf{Прогресс/лидерборд:} жергиликтүү же булут аркылуу (мис., Firebase).
+  \item \textbf{Үндөр/вибро:} туура/ката жоопко сигнал, мобайлда виброфидбэк.
+  \item \textbf{Адаптивдүү татаалдаштыруу:} тактыкка жараша диапазондорду өзгөртүү.
+  \item \textbf{Код структурасы:} модулга бөлүү (рендер, инпут, логика, генерация) — тесттөөгө ыңгайлуу.
+\end{enumerate}
+
+\section{Жыйынтык}
+\textbf{«Snake × Math»} — Canvas API жана заманбап CSS менен курулган, толук иштей турган \textbf{edutainment}-оюн. Ал классикалык механиканы туура колдонуп, билим берүү элементин табигый кошот: оюнчу жоопту тез эсептеп, туура санды тандоого үйрөнөт.
+
+Практикалык колдонуу сценарийлери:
+\begin{itemize}
+  \item Мектеп/кружок үчүн математика боюнча \textbf{кыска машыгуу} куралы;
+  \item Информатика/веб-разработка сабактарында \textbf{демо-проект};
+  \item Онлайн-курстарда \textbf{мини-оюн} катары мотивация куралы.
+\end{itemize}
+Проект оңой кеңейтилет: жаңы мисал түрлөрү, лидерборд, адаптивдүү кыйынчылык, мультимедиялык эффекттер.
+
+\end{document}
