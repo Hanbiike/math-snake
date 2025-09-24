@@ -1,0 +1,137 @@
+\begin{MintedVerbatim}[commandchars=\\\{\}]
+  \PYG{c+cm}{\PYGZlt{}!\PYGZhy{}\PYGZhy{} ⬜ Башкы бөлүк: оюн тууралуу абалды көрсөтөт \PYGZhy{}\PYGZhy{}\PYGZgt{}}
+  \PYG{p}{\PYGZlt{}}\PYG{n+nt}{header}\PYG{p}{\PYGZgt{}}
+    \PYG{p}{\PYGZlt{}}\PYG{n+nt}{div} \PYG{n+na}{class}\PYG{o}{=}\PYG{l+s}{\PYGZdq{}hud\PYGZdq{}} \PYG{n+na}{aria\PYGZhy{}label}\PYG{o}{=}\PYG{l+s}{\PYGZdq{}Status left\PYGZdq{}}\PYG{p}{\PYGZgt{}}
+      \PYG{c+cm}{\PYGZlt{}!\PYGZhy{}\PYGZhy{} Режимди көрсөтөт (кошуу, алуу, ж.б.) \PYGZhy{}\PYGZhy{}\PYGZgt{}}
+      \PYG{p}{\PYGZlt{}}\PYG{n+nt}{div} \PYG{n+na}{class}\PYG{o}{=}\PYG{l+s}{\PYGZdq{}chip\PYGZdq{}}\PYG{p}{\PYGZgt{}}Mode: \PYG{p}{\PYGZlt{}}\PYG{n+nt}{b} \PYG{n+na}{id}\PYG{o}{=}\PYG{l+s}{\PYGZdq{}modeChip\PYGZdq{}}\PYG{p}{\PYGZgt{}}—\PYG{p}{\PYGZlt{}}\PYG{p}{/}\PYG{n+nt}{b}\PYG{p}{\PYGZgt{}}\PYG{p}{\PYGZlt{}}\PYG{p}{/}\PYG{n+nt}{div}\PYG{p}{\PYGZgt{}}
+      \PYG{c+cm}{\PYGZlt{}!\PYGZhy{}\PYGZhy{} Деңгээлди көрсөтөт \PYGZhy{}\PYGZhy{}\PYGZgt{}}
+      \PYG{p}{\PYGZlt{}}\PYG{n+nt}{div} \PYG{n+na}{class}\PYG{o}{=}\PYG{l+s}{\PYGZdq{}chip\PYGZdq{}}\PYG{p}{\PYGZgt{}}Level: \PYG{p}{\PYGZlt{}}\PYG{n+nt}{b} \PYG{n+na}{id}\PYG{o}{=}\PYG{l+s}{\PYGZdq{}levelChip\PYGZdq{}}\PYG{p}{\PYGZgt{}}—\PYG{p}{\PYGZlt{}}\PYG{p}{/}\PYG{n+nt}{b}\PYG{p}{\PYGZgt{}}\PYG{p}{\PYGZlt{}}\PYG{p}{/}\PYG{n+nt}{div}\PYG{p}{\PYGZgt{}}
+    \PYG{p}{\PYGZlt{}}\PYG{p}{/}\PYG{n+nt}{div}\PYG{p}{\PYGZgt{}}
+
+    \PYG{c+cm}{\PYGZlt{}!\PYGZhy{}\PYGZhy{} Оюндун аталышы \PYGZhy{}\PYGZhy{}\PYGZgt{}}
+    \PYG{p}{\PYGZlt{}}\PYG{n+nt}{h1}\PYG{p}{\PYGZgt{}}Snake × \PYG{p}{\PYGZlt{}}\PYG{n+nt}{span} \PYG{n+na}{style}\PYG{o}{=}\PYG{l+s}{\PYGZdq{}color:var(\PYGZhy{}\PYGZhy{}accent)\PYGZdq{}}\PYG{p}{\PYGZgt{}}Math\PYG{p}{\PYGZlt{}}\PYG{p}{/}\PYG{n+nt}{span}\PYG{p}{\PYGZgt{}}\PYG{p}{\PYGZlt{}}\PYG{p}{/}\PYG{n+nt}{h1}\PYG{p}{\PYGZgt{}}
+
+    \PYG{p}{\PYGZlt{}}\PYG{n+nt}{div} \PYG{n+na}{class}\PYG{o}{=}\PYG{l+s}{\PYGZdq{}hud\PYGZdq{}} \PYG{n+na}{aria\PYGZhy{}label}\PYG{o}{=}\PYG{l+s}{\PYGZdq{}Status right\PYGZdq{}}\PYG{p}{\PYGZgt{}}
+      \PYG{c+cm}{\PYGZlt{}!\PYGZhy{}\PYGZhy{} Топтолгон упай \PYGZhy{}\PYGZhy{}\PYGZgt{}}
+      \PYG{p}{\PYGZlt{}}\PYG{n+nt}{div} \PYG{n+na}{class}\PYG{o}{=}\PYG{l+s}{\PYGZdq{}chip\PYGZdq{}}\PYG{p}{\PYGZgt{}}Score: \PYG{p}{\PYGZlt{}}\PYG{n+nt}{b} \PYG{n+na}{id}\PYG{o}{=}\PYG{l+s}{\PYGZdq{}scoreChip\PYGZdq{}}\PYG{p}{\PYGZgt{}}0\PYG{p}{\PYGZlt{}}\PYG{p}{/}\PYG{n+nt}{b}\PYG{p}{\PYGZgt{}}\PYG{p}{\PYGZlt{}}\PYG{p}{/}\PYG{n+nt}{div}\PYG{p}{\PYGZgt{}}
+      \PYG{c+cm}{\PYGZlt{}!\PYGZhy{}\PYGZhy{} Убакыт эсептегич (таймер) \PYGZhy{}\PYGZhy{}\PYGZgt{}}
+      \PYG{p}{\PYGZlt{}}\PYG{n+nt}{div} \PYG{n+na}{class}\PYG{o}{=}\PYG{l+s}{\PYGZdq{}chip hidden\PYGZdq{}} \PYG{n+na}{id}\PYG{o}{=}\PYG{l+s}{\PYGZdq{}timeChipContainer\PYGZdq{}}\PYG{p}{\PYGZgt{}}Time: \PYG{p}{\PYGZlt{}}\PYG{n+nt}{b} \PYG{n+na}{id}\PYG{o}{=}\PYG{l+s}{\PYGZdq{}timeChip\PYGZdq{}}\PYG{p}{\PYGZgt{}}—\PYG{p}{\PYGZlt{}}\PYG{p}{/}\PYG{n+nt}{b}\PYG{p}{\PYGZgt{}}\PYG{p}{\PYGZlt{}}\PYG{p}{/}\PYG{n+nt}{div}\PYG{p}{\PYGZgt{}}
+      \PYG{c+cm}{\PYGZlt{}!\PYGZhy{}\PYGZhy{} Жандар саны \PYGZhy{}\PYGZhy{}\PYGZgt{}}
+      \PYG{p}{\PYGZlt{}}\PYG{n+nt}{div} \PYG{n+na}{class}\PYG{o}{=}\PYG{l+s}{\PYGZdq{}chip\PYGZdq{}}\PYG{p}{\PYGZgt{}}Lives: \PYG{p}{\PYGZlt{}}\PYG{n+nt}{b} \PYG{n+na}{id}\PYG{o}{=}\PYG{l+s}{\PYGZdq{}livesChip\PYGZdq{}}\PYG{p}{\PYGZgt{}}3\PYG{p}{\PYGZlt{}}\PYG{p}{/}\PYG{n+nt}{b}\PYG{p}{\PYGZgt{}}\PYG{p}{\PYGZlt{}}\PYG{p}{/}\PYG{n+nt}{div}\PYG{p}{\PYGZgt{}}
+    \PYG{p}{\PYGZlt{}}\PYG{p}{/}\PYG{n+nt}{div}\PYG{p}{\PYGZgt{}}
+  \PYG{p}{\PYGZlt{}}\PYG{p}{/}\PYG{n+nt}{header}\PYG{p}{\PYGZgt{}}
+
+  \PYG{p}{\PYGZlt{}}\PYG{n+nt}{div} \PYG{n+na}{class}\PYG{o}{=}\PYG{l+s}{\PYGZdq{}wrap\PYGZdq{}}\PYG{p}{\PYGZgt{}}
+    \PYG{c+cm}{\PYGZlt{}!\PYGZhy{}\PYGZhy{} Панель: мисал жана башкаруу баскычтары \PYGZhy{}\PYGZhy{}\PYGZgt{}}
+    \PYG{p}{\PYGZlt{}}\PYG{n+nt}{div} \PYG{n+na}{class}\PYG{o}{=}\PYG{l+s}{\PYGZdq{}panel\PYGZdq{}} \PYG{n+na}{role}\PYG{o}{=}\PYG{l+s}{\PYGZdq{}group\PYGZdq{}} \PYG{n+na}{aria\PYGZhy{}label}\PYG{o}{=}\PYG{l+s}{\PYGZdq{}Expression \PYGZam{} controls\PYGZdq{}}\PYG{p}{\PYGZgt{}}
+      \PYG{p}{\PYGZlt{}}\PYG{n+nt}{button} \PYG{n+na}{class}\PYG{o}{=}\PYG{l+s}{\PYGZdq{}btn\PYGZdq{}} \PYG{n+na}{id}\PYG{o}{=}\PYG{l+s}{\PYGZdq{}menuBtn\PYGZdq{}} \PYG{n+na}{title}\PYG{o}{=}\PYG{l+s}{\PYGZdq{}Main menu\PYGZdq{}}\PYG{p}{\PYGZgt{}}☰ Menu\PYG{p}{\PYGZlt{}}\PYG{p}{/}\PYG{n+nt}{button}\PYG{p}{\PYGZgt{}}
+      \PYG{p}{\PYGZlt{}}\PYG{n+nt}{div} \PYG{n+na}{class}\PYG{o}{=}\PYG{l+s}{\PYGZdq{}expr\PYGZdq{}}\PYG{p}{\PYGZgt{}}Solve: \PYG{p}{\PYGZlt{}}\PYG{n+nt}{b} \PYG{n+na}{id}\PYG{o}{=}\PYG{l+s}{\PYGZdq{}exprText\PYGZdq{}}\PYG{p}{\PYGZgt{}}—\PYG{p}{\PYGZlt{}}\PYG{p}{/}\PYG{n+nt}{b}\PYG{p}{\PYGZgt{}}\PYG{p}{\PYGZlt{}}\PYG{p}{/}\PYG{n+nt}{div}\PYG{p}{\PYGZgt{}}
+      \PYG{p}{\PYGZlt{}}\PYG{n+nt}{button} \PYG{n+na}{class}\PYG{o}{=}\PYG{l+s}{\PYGZdq{}btn\PYGZdq{}} \PYG{n+na}{id}\PYG{o}{=}\PYG{l+s}{\PYGZdq{}pauseBtn\PYGZdq{}} \PYG{n+na}{title}\PYG{o}{=}\PYG{l+s}{\PYGZdq{}Pause/Resume\PYGZdq{}}\PYG{p}{\PYGZgt{}}⏯ Pause\PYG{p}{\PYGZlt{}}\PYG{p}{/}\PYG{n+nt}{button}\PYG{p}{\PYGZgt{}}
+    \PYG{p}{\PYGZlt{}}\PYG{p}{/}\PYG{n+nt}{div}\PYG{p}{\PYGZgt{}}
+
+    \PYG{c+cm}{\PYGZlt{}!\PYGZhy{}\PYGZhy{} Оюн талаасы \PYGZhy{}\PYGZhy{}\PYGZgt{}}
+    \PYG{p}{\PYGZlt{}}\PYG{n+nt}{div} \PYG{n+na}{class}\PYG{o}{=}\PYG{l+s}{\PYGZdq{}board\PYGZhy{}wrap\PYGZdq{}} \PYG{n+na}{id}\PYG{o}{=}\PYG{l+s}{\PYGZdq{}boardWrap\PYGZdq{}}\PYG{p}{\PYGZgt{}}
+      \PYG{c+cm}{\PYGZlt{}!\PYGZhy{}\PYGZhy{} Canvas — оюн талаасы (ячейкалар менен сетка) \PYGZhy{}\PYGZhy{}\PYGZgt{}}
+      \PYG{p}{\PYGZlt{}}\PYG{n+nt}{canvas} \PYG{n+na}{id}\PYG{o}{=}\PYG{l+s}{\PYGZdq{}board\PYGZdq{}} \PYG{n+na}{width}\PYG{o}{=}\PYG{l+s}{\PYGZdq{}400\PYGZdq{}} \PYG{n+na}{height}\PYG{o}{=}\PYG{l+s}{\PYGZdq{}400\PYGZdq{}} \PYG{n+na}{aria\PYGZhy{}label}\PYG{o}{=}\PYG{l+s}{\PYGZdq{}Game board\PYGZdq{}} \PYG{n+na}{tabindex}\PYG{o}{=}\PYG{l+s}{\PYGZdq{}0\PYGZdq{}}\PYG{p}{\PYGZgt{}}\PYG{p}{\PYGZlt{}}\PYG{p}{/}\PYG{n+nt}{canvas}\PYG{p}{\PYGZgt{}}
+
+      \PYG{c+cm}{\PYGZlt{}!\PYGZhy{}\PYGZhy{} 🗒 Башкы меню үстүнкү катмары \PYGZhy{}\PYGZhy{}\PYGZgt{}}
+      \PYG{p}{\PYGZlt{}}\PYG{n+nt}{div} \PYG{n+na}{class}\PYG{o}{=}\PYG{l+s}{\PYGZdq{}overlay hidden\PYGZdq{}} \PYG{n+na}{id}\PYG{o}{=}\PYG{l+s}{\PYGZdq{}menu\PYGZdq{}}\PYG{p}{\PYGZgt{}}
+        \PYG{p}{\PYGZlt{}}\PYG{n+nt}{div} \PYG{n+na}{class}\PYG{o}{=}\PYG{l+s}{\PYGZdq{}card\PYGZdq{}}\PYG{p}{\PYGZgt{}}
+          \PYG{p}{\PYGZlt{}}\PYG{n+nt}{h2}\PYG{p}{\PYGZgt{}}Start Game\PYG{p}{\PYGZlt{}}\PYG{p}{/}\PYG{n+nt}{h2}\PYG{p}{\PYGZgt{}}
+          \PYG{p}{\PYGZlt{}}\PYG{n+nt}{p}\PYG{p}{\PYGZgt{}}Режим жана деңгээлди танда. Бөлүүдө ар дайым бүтүн сан чыгат. Дубалга жана өзүңө урунба. Туура жоопту же, туура эмес жооп бир жанды алат.\PYG{p}{\PYGZlt{}}\PYG{p}{/}\PYG{n+nt}{p}\PYG{p}{\PYGZgt{}}
+          \PYG{p}{\PYGZlt{}}\PYG{n+nt}{div} \PYG{n+na}{class}\PYG{o}{=}\PYG{l+s}{\PYGZdq{}row\PYGZdq{}}\PYG{p}{\PYGZgt{}}
+            \PYG{c+cm}{\PYGZlt{}!\PYGZhy{}\PYGZhy{} Режим тандоо \PYGZhy{}\PYGZhy{}\PYGZgt{}}
+            \PYG{p}{\PYGZlt{}}\PYG{n+nt}{label}\PYG{p}{\PYGZgt{}}
+              \PYG{p}{\PYGZlt{}}\PYG{n+nt}{div} \PYG{n+na}{style}\PYG{o}{=}\PYG{l+s}{\PYGZdq{}margin\PYGZhy{}bottom:6px\PYGZdq{}}\PYG{p}{\PYGZgt{}}Mode\PYG{p}{\PYGZlt{}}\PYG{p}{/}\PYG{n+nt}{div}\PYG{p}{\PYGZgt{}}
+              \PYG{p}{\PYGZlt{}}\PYG{n+nt}{select} \PYG{n+na}{class}\PYG{o}{=}\PYG{l+s}{\PYGZdq{}select\PYGZdq{}} \PYG{n+na}{id}\PYG{o}{=}\PYG{l+s}{\PYGZdq{}modeSelect\PYGZdq{}}\PYG{p}{\PYGZgt{}}
+                \PYG{p}{\PYGZlt{}}\PYG{n+nt}{option} \PYG{n+na}{value}\PYG{o}{=}\PYG{l+s}{\PYGZdq{}add\PYGZdq{}}\PYG{p}{\PYGZgt{}}Addition\PYG{p}{\PYGZlt{}}\PYG{p}{/}\PYG{n+nt}{option}\PYG{p}{\PYGZgt{}}
+                \PYG{p}{\PYGZlt{}}\PYG{n+nt}{option} \PYG{n+na}{value}\PYG{o}{=}\PYG{l+s}{\PYGZdq{}sub\PYGZdq{}}\PYG{p}{\PYGZgt{}}Subtraction\PYG{p}{\PYGZlt{}}\PYG{p}{/}\PYG{n+nt}{option}\PYG{p}{\PYGZgt{}}
+                \PYG{p}{\PYGZlt{}}\PYG{n+nt}{option} \PYG{n+na}{value}\PYG{o}{=}\PYG{l+s}{\PYGZdq{}mul\PYGZdq{}}\PYG{p}{\PYGZgt{}}Multiplication\PYG{p}{\PYGZlt{}}\PYG{p}{/}\PYG{n+nt}{option}\PYG{p}{\PYGZgt{}}
+                \PYG{p}{\PYGZlt{}}\PYG{n+nt}{option} \PYG{n+na}{value}\PYG{o}{=}\PYG{l+s}{\PYGZdq{}div\PYGZdq{}}\PYG{p}{\PYGZgt{}}Division\PYG{p}{\PYGZlt{}}\PYG{p}{/}\PYG{n+nt}{option}\PYG{p}{\PYGZgt{}}
+                \PYG{p}{\PYGZlt{}}\PYG{n+nt}{option} \PYG{n+na}{value}\PYG{o}{=}\PYG{l+s}{\PYGZdq{}mix\PYGZdq{}} \PYG{n+na}{selected}\PYG{p}{\PYGZgt{}}Mixed\PYG{p}{\PYGZlt{}}\PYG{p}{/}\PYG{n+nt}{option}\PYG{p}{\PYGZgt{}}
+              \PYG{p}{\PYGZlt{}}\PYG{p}{/}\PYG{n+nt}{select}\PYG{p}{\PYGZgt{}}
+            \PYG{p}{\PYGZlt{}}\PYG{p}{/}\PYG{n+nt}{label}\PYG{p}{\PYGZgt{}}
+            \PYG{c+cm}{\PYGZlt{}!\PYGZhy{}\PYGZhy{} Деңгээл тандоо \PYGZhy{}\PYGZhy{}\PYGZgt{}}
+            \PYG{p}{\PYGZlt{}}\PYG{n+nt}{label}\PYG{p}{\PYGZgt{}}
+              \PYG{p}{\PYGZlt{}}\PYG{n+nt}{div} \PYG{n+na}{style}\PYG{o}{=}\PYG{l+s}{\PYGZdq{}margin\PYGZhy{}bottom:6px\PYGZdq{}}\PYG{p}{\PYGZgt{}}Level\PYG{p}{\PYGZlt{}}\PYG{p}{/}\PYG{n+nt}{div}\PYG{p}{\PYGZgt{}}
+              \PYG{p}{\PYGZlt{}}\PYG{n+nt}{select} \PYG{n+na}{class}\PYG{o}{=}\PYG{l+s}{\PYGZdq{}select\PYGZdq{}} \PYG{n+na}{id}\PYG{o}{=}\PYG{l+s}{\PYGZdq{}levelSelect\PYGZdq{}}\PYG{p}{\PYGZgt{}}
+                \PYG{p}{\PYGZlt{}}\PYG{n+nt}{option} \PYG{n+na}{value}\PYG{o}{=}\PYG{l+s}{\PYGZdq{}easy\PYGZdq{}}\PYG{p}{\PYGZgt{}}Easy (1–9)\PYG{p}{\PYGZlt{}}\PYG{p}{/}\PYG{n+nt}{option}\PYG{p}{\PYGZgt{}}
+                \PYG{p}{\PYGZlt{}}\PYG{n+nt}{option} \PYG{n+na}{value}\PYG{o}{=}\PYG{l+s}{\PYGZdq{}med\PYGZdq{}}\PYG{p}{\PYGZgt{}}Medium (10–99)\PYG{p}{\PYGZlt{}}\PYG{p}{/}\PYG{n+nt}{option}\PYG{p}{\PYGZgt{}}
+                \PYG{p}{\PYGZlt{}}\PYG{n+nt}{option} \PYG{n+na}{value}\PYG{o}{=}\PYG{l+s}{\PYGZdq{}mix\PYGZdq{}}\PYG{p}{\PYGZgt{}}Mixed (1–99)\PYG{p}{\PYGZlt{}}\PYG{p}{/}\PYG{n+nt}{option}\PYG{p}{\PYGZgt{}}
+                \PYG{p}{\PYGZlt{}}\PYG{n+nt}{option} \PYG{n+na}{value}\PYG{o}{=}\PYG{l+s}{\PYGZdq{}adv\PYGZdq{}}\PYG{p}{\PYGZgt{}}Advanced (to 3 digits)\PYG{p}{\PYGZlt{}}\PYG{p}{/}\PYG{n+nt}{option}\PYG{p}{\PYGZgt{}}
+                \PYG{p}{\PYGZlt{}}\PYG{n+nt}{option} \PYG{n+na}{value}\PYG{o}{=}\PYG{l+s}{\PYGZdq{}exp\PYGZdq{}} \PYG{n+na}{selected}\PYG{p}{\PYGZgt{}}Expert (fast)\PYG{p}{\PYGZlt{}}\PYG{p}{/}\PYG{n+nt}{option}\PYG{p}{\PYGZgt{}}
+              \PYG{p}{\PYGZlt{}}\PYG{p}{/}\PYG{n+nt}{select}\PYG{p}{\PYGZgt{}}
+            \PYG{p}{\PYGZlt{}}\PYG{p}{/}\PYG{n+nt}{label}\PYG{p}{\PYGZgt{}}
+          \PYG{p}{\PYGZlt{}}\PYG{p}{/}\PYG{n+nt}{div}\PYG{p}{\PYGZgt{}}
+          \PYG{c+cm}{\PYGZlt{}!\PYGZhy{}\PYGZhy{} Опциялар \PYGZhy{}\PYGZhy{}\PYGZgt{}}
+          \PYG{p}{\PYGZlt{}}\PYG{n+nt}{div} \PYG{n+na}{style}\PYG{o}{=}\PYG{l+s}{\PYGZdq{}margin\PYGZhy{}top:10px;\PYGZdq{}}\PYG{p}{\PYGZgt{}}
+            \PYG{p}{\PYGZlt{}}\PYG{n+nt}{label} \PYG{n+na}{style}\PYG{o}{=}\PYG{l+s}{\PYGZdq{}display:flex; align\PYGZhy{}items:center; gap:8px; margin\PYGZhy{}bottom:6px;\PYGZdq{}}\PYG{p}{\PYGZgt{}}
+              \PYG{p}{\PYGZlt{}}\PYG{n+nt}{input} \PYG{n+na}{type}\PYG{o}{=}\PYG{l+s}{\PYGZdq{}checkbox\PYGZdq{}} \PYG{n+na}{id}\PYG{o}{=}\PYG{l+s}{\PYGZdq{}showHintsCheck\PYGZdq{}} \PYG{n+na}{checked}\PYG{p}{\PYGZgt{}}
+              \PYG{p}{\PYGZlt{}}\PYG{n+nt}{span}\PYG{p}{\PYGZgt{}}Туура жоопко жашыл подсказка көрсөтүү\PYG{p}{\PYGZlt{}}\PYG{p}{/}\PYG{n+nt}{span}\PYG{p}{\PYGZgt{}}
+            \PYG{p}{\PYGZlt{}}\PYG{p}{/}\PYG{n+nt}{label}\PYG{p}{\PYGZgt{}}
+            \PYG{p}{\PYGZlt{}}\PYG{n+nt}{label} \PYG{n+na}{style}\PYG{o}{=}\PYG{l+s}{\PYGZdq{}display:flex; align\PYGZhy{}items:center; gap:8px; margin\PYGZhy{}bottom:6px;\PYGZdq{}}\PYG{p}{\PYGZgt{}}
+              \PYG{p}{\PYGZlt{}}\PYG{n+nt}{input} \PYG{n+na}{type}\PYG{o}{=}\PYG{l+s}{\PYGZdq{}checkbox\PYGZdq{}} \PYG{n+na}{id}\PYG{o}{=}\PYG{l+s}{\PYGZdq{}timerCheck\PYGZdq{}} \PYG{n+na}{checked}\PYG{p}{\PYGZgt{}}
+              \PYG{p}{\PYGZlt{}}\PYG{n+nt}{span}\PYG{p}{\PYGZgt{}}Таймерди күйгүзүү\PYG{p}{\PYGZlt{}}\PYG{p}{/}\PYG{n+nt}{span}\PYG{p}{\PYGZgt{}}
+            \PYG{p}{\PYGZlt{}}\PYG{p}{/}\PYG{n+nt}{label}\PYG{p}{\PYGZgt{}}
+            \PYG{p}{\PYGZlt{}}\PYG{n+nt}{label} \PYG{n+na}{style}\PYG{o}{=}\PYG{l+s}{\PYGZdq{}display:flex; align\PYGZhy{}items:center; gap:8px;\PYGZdq{}}\PYG{p}{\PYGZgt{}}
+              \PYG{p}{\PYGZlt{}}\PYG{n+nt}{input} \PYG{n+na}{type}\PYG{o}{=}\PYG{l+s}{\PYGZdq{}checkbox\PYGZdq{}} \PYG{n+na}{id}\PYG{o}{=}\PYG{l+s}{\PYGZdq{}sandboxCheck\PYGZdq{}}\PYG{p}{\PYGZgt{}}
+              \PYG{p}{\PYGZlt{}}\PYG{n+nt}{span}\PYG{p}{\PYGZgt{}}Sandbox режим (чексиз оюн)\PYG{p}{\PYGZlt{}}\PYG{p}{/}\PYG{n+nt}{span}\PYG{p}{\PYGZgt{}}
+            \PYG{p}{\PYGZlt{}}\PYG{p}{/}\PYG{n+nt}{label}\PYG{p}{\PYGZgt{}}
+          \PYG{p}{\PYGZlt{}}\PYG{p}{/}\PYG{n+nt}{div}\PYG{p}{\PYGZgt{}}
+          \PYG{c+cm}{\PYGZlt{}!\PYGZhy{}\PYGZhy{} Башкаруу баскычтары \PYGZhy{}\PYGZhy{}\PYGZgt{}}
+          \PYG{p}{\PYGZlt{}}\PYG{n+nt}{div} \PYG{n+na}{style}\PYG{o}{=}\PYG{l+s}{\PYGZdq{}display:flex; gap:8px; margin\PYGZhy{}top:10px;\PYGZdq{}}\PYG{p}{\PYGZgt{}}
+            \PYG{p}{\PYGZlt{}}\PYG{n+nt}{button} \PYG{n+na}{class}\PYG{o}{=}\PYG{l+s}{\PYGZdq{}btn\PYGZdq{}} \PYG{n+na}{id}\PYG{o}{=}\PYG{l+s}{\PYGZdq{}startBtn\PYGZdq{}}\PYG{p}{\PYGZgt{}}▶ Start\PYG{p}{\PYGZlt{}}\PYG{p}{/}\PYG{n+nt}{button}\PYG{p}{\PYGZgt{}}
+            \PYG{p}{\PYGZlt{}}\PYG{n+nt}{button} \PYG{n+na}{class}\PYG{o}{=}\PYG{l+s}{\PYGZdq{}btn\PYGZdq{}} \PYG{n+na}{id}\PYG{o}{=}\PYG{l+s}{\PYGZdq{}howBtn\PYGZdq{}}\PYG{p}{\PYGZgt{}}? How to play\PYG{p}{\PYGZlt{}}\PYG{p}{/}\PYG{n+nt}{button}\PYG{p}{\PYGZgt{}}
+          \PYG{p}{\PYGZlt{}}\PYG{p}{/}\PYG{n+nt}{div}\PYG{p}{\PYGZgt{}}
+          \PYG{p}{\PYGZlt{}}\PYG{n+nt}{p} \PYG{n+na}{class}\PYG{o}{=}\PYG{l+s}{\PYGZdq{}notice\PYGZdq{}}\PYG{p}{\PYGZgt{}}Башкаруу: жебе баскычтар / WASD • экрандагы D\PYGZhy{}pad • сүрүү. \PYG{p}{\PYGZlt{}}\PYG{n+nt}{span} \PYG{n+na}{class}\PYG{o}{=}\PYG{l+s}{\PYGZdq{}dot\PYGZdq{}}\PYG{p}{\PYGZgt{}}\PYG{p}{\PYGZlt{}}\PYG{p}{/}\PYG{n+nt}{span}\PYG{p}{\PYGZgt{}}\PYG{p}{\PYGZlt{}}\PYG{p}{/}\PYG{n+nt}{p}\PYG{p}{\PYGZgt{}}
+        \PYG{p}{\PYGZlt{}}\PYG{p}{/}\PYG{n+nt}{div}\PYG{p}{\PYGZgt{}}
+      \PYG{p}{\PYGZlt{}}\PYG{p}{/}\PYG{n+nt}{div}\PYG{p}{\PYGZgt{}}
+
+      \PYG{c+cm}{\PYGZlt{}!\PYGZhy{}\PYGZhy{} ⓘ Кантип ойноо үстүнкү катмары \PYGZhy{}\PYGZhy{}\PYGZgt{}}
+      \PYG{p}{\PYGZlt{}}\PYG{n+nt}{div} \PYG{n+na}{class}\PYG{o}{=}\PYG{l+s}{\PYGZdq{}overlay hidden\PYGZdq{}} \PYG{n+na}{id}\PYG{o}{=}\PYG{l+s}{\PYGZdq{}info\PYGZdq{}}\PYG{p}{\PYGZgt{}}
+        \PYG{p}{\PYGZlt{}}\PYG{n+nt}{div} \PYG{n+na}{class}\PYG{o}{=}\PYG{l+s}{\PYGZdq{}card\PYGZdq{}}\PYG{p}{\PYGZgt{}}
+          \PYG{p}{\PYGZlt{}}\PYG{n+nt}{h2}\PYG{p}{\PYGZgt{}}How to play\PYG{p}{\PYGZlt{}}\PYG{p}{/}\PYG{n+nt}{h2}\PYG{p}{\PYGZgt{}}
+          \PYG{p}{\PYGZlt{}}\PYG{n+nt}{p}\PYG{p}{\PYGZgt{}}Классикалык жылаан эрежелери. Жогорку жакта мисал чыгат. Туура жоопко жетсең упай кошулат, туура эмес болсо жан кетет. 10 туура жооп бергенде деңгээл аяктайт.\PYG{p}{\PYGZlt{}}\PYG{p}{/}\PYG{n+nt}{p}\PYG{p}{\PYGZgt{}}
+          \PYG{p}{\PYGZlt{}}\PYG{n+nt}{div} \PYG{n+na}{style}\PYG{o}{=}\PYG{l+s}{\PYGZdq{}display:flex; gap:8px; margin\PYGZhy{}top:8px;\PYGZdq{}}\PYG{p}{\PYGZgt{}}
+            \PYG{p}{\PYGZlt{}}\PYG{n+nt}{button} \PYG{n+na}{class}\PYG{o}{=}\PYG{l+s}{\PYGZdq{}btn\PYGZdq{}} \PYG{n+na}{id}\PYG{o}{=}\PYG{l+s}{\PYGZdq{}resumeFromInfo\PYGZdq{}}\PYG{p}{\PYGZgt{}}OK\PYG{p}{\PYGZlt{}}\PYG{p}{/}\PYG{n+nt}{button}\PYG{p}{\PYGZgt{}}
+          \PYG{p}{\PYGZlt{}}\PYG{p}{/}\PYG{n+nt}{div}\PYG{p}{\PYGZgt{}}
+        \PYG{p}{\PYGZlt{}}\PYG{p}{/}\PYG{n+nt}{div}\PYG{p}{\PYGZgt{}}
+      \PYG{p}{\PYGZlt{}}\PYG{p}{/}\PYG{n+nt}{div}\PYG{p}{\PYGZgt{}}
+
+      \PYG{c+cm}{\PYGZlt{}!\PYGZhy{}\PYGZhy{} ✓ Деңгээл аяктады \PYGZhy{}\PYGZhy{}\PYGZgt{}}
+      \PYG{p}{\PYGZlt{}}\PYG{n+nt}{div} \PYG{n+na}{class}\PYG{o}{=}\PYG{l+s}{\PYGZdq{}overlay hidden\PYGZdq{}} \PYG{n+na}{id}\PYG{o}{=}\PYG{l+s}{\PYGZdq{}levelDone\PYGZdq{}}\PYG{p}{\PYGZgt{}}
+        \PYG{p}{\PYGZlt{}}\PYG{n+nt}{div} \PYG{n+na}{class}\PYG{o}{=}\PYG{l+s}{\PYGZdq{}card\PYGZdq{}}\PYG{p}{\PYGZgt{}}
+          \PYG{p}{\PYGZlt{}}\PYG{n+nt}{h2}\PYG{p}{\PYGZgt{}}Level Complete ✺\PYG{p}{\PYGZlt{}}\PYG{p}{/}\PYG{n+nt}{h2}\PYG{p}{\PYGZgt{}}
+          \PYG{p}{\PYGZlt{}}\PYG{n+nt}{p}\PYG{p}{\PYGZgt{}}Сен \PYG{p}{\PYGZlt{}}\PYG{n+nt}{b} \PYG{n+na}{id}\PYG{o}{=}\PYG{l+s}{\PYGZdq{}solvedCount\PYGZdq{}}\PYG{p}{\PYGZgt{}}0\PYG{p}{\PYGZlt{}}\PYG{p}{/}\PYG{n+nt}{b}\PYG{p}{\PYGZgt{}} мисалды туура чечтиң! Улантасыңбы же жаңы деңгээл тандайсыңбы?\PYG{p}{\PYGZlt{}}\PYG{p}{/}\PYG{n+nt}{p}\PYG{p}{\PYGZgt{}}
+          \PYG{p}{\PYGZlt{}}\PYG{n+nt}{div} \PYG{n+na}{style}\PYG{o}{=}\PYG{l+s}{\PYGZdq{}display:flex; gap:8px; margin\PYGZhy{}top:8px; flex\PYGZhy{}wrap: wrap;\PYGZdq{}}\PYG{p}{\PYGZgt{}}
+            \PYG{p}{\PYGZlt{}}\PYG{n+nt}{button} \PYG{n+na}{class}\PYG{o}{=}\PYG{l+s}{\PYGZdq{}btn\PYGZdq{}} \PYG{n+na}{id}\PYG{o}{=}\PYG{l+s}{\PYGZdq{}continueBtn\PYGZdq{}}\PYG{p}{\PYGZgt{}}Continue\PYG{p}{\PYGZlt{}}\PYG{p}{/}\PYG{n+nt}{button}\PYG{p}{\PYGZgt{}}
+            \PYG{p}{\PYGZlt{}}\PYG{n+nt}{button} \PYG{n+na}{class}\PYG{o}{=}\PYG{l+s}{\PYGZdq{}btn\PYGZdq{}} \PYG{n+na}{id}\PYG{o}{=}\PYG{l+s}{\PYGZdq{}changeBtn\PYGZdq{}}\PYG{p}{\PYGZgt{}}Change Mode/Level\PYG{p}{\PYGZlt{}}\PYG{p}{/}\PYG{n+nt}{button}\PYG{p}{\PYGZgt{}}
+          \PYG{p}{\PYGZlt{}}\PYG{p}{/}\PYG{n+nt}{div}\PYG{p}{\PYGZgt{}}
+        \PYG{p}{\PYGZlt{}}\PYG{p}{/}\PYG{n+nt}{div}\PYG{p}{\PYGZgt{}}
+      \PYG{p}{\PYGZlt{}}\PYG{p}{/}\PYG{n+nt}{div}\PYG{p}{\PYGZgt{}}
+
+      \PYG{c+cm}{\PYGZlt{}!\PYGZhy{}\PYGZhy{} ☠ Оюн бүттү \PYGZhy{}\PYGZhy{}\PYGZgt{}}
+      \PYG{p}{\PYGZlt{}}\PYG{n+nt}{div} \PYG{n+na}{class}\PYG{o}{=}\PYG{l+s}{\PYGZdq{}overlay hidden\PYGZdq{}} \PYG{n+na}{id}\PYG{o}{=}\PYG{l+s}{\PYGZdq{}gameOver\PYGZdq{}}\PYG{p}{\PYGZgt{}}
+        \PYG{p}{\PYGZlt{}}\PYG{n+nt}{div} \PYG{n+na}{class}\PYG{o}{=}\PYG{l+s}{\PYGZdq{}card\PYGZdq{}}\PYG{p}{\PYGZgt{}}
+          \PYG{p}{\PYGZlt{}}\PYG{n+nt}{h2}\PYG{p}{\PYGZgt{}}Game Over ☠\PYG{p}{\PYGZlt{}}\PYG{p}{/}\PYG{n+nt}{h2}\PYG{p}{\PYGZgt{}}
+          \PYG{p}{\PYGZlt{}}\PYG{n+nt}{p}\PYG{p}{\PYGZgt{}}Сенин упайың: \PYG{p}{\PYGZlt{}}\PYG{n+nt}{b} \PYG{n+na}{id}\PYG{o}{=}\PYG{l+s}{\PYGZdq{}finalScore\PYGZdq{}}\PYG{p}{\PYGZgt{}}0\PYG{p}{\PYGZlt{}}\PYG{p}{/}\PYG{n+nt}{b}\PYG{p}{\PYGZgt{}}. Кайра аракет кыласыңбы?\PYG{p}{\PYGZlt{}}\PYG{p}{/}\PYG{n+nt}{p}\PYG{p}{\PYGZgt{}}
+          \PYG{p}{\PYGZlt{}}\PYG{n+nt}{div} \PYG{n+na}{style}\PYG{o}{=}\PYG{l+s}{\PYGZdq{}display:flex; gap:8px; margin\PYGZhy{}top:8px; flex\PYGZhy{}wrap: wrap;\PYGZdq{}}\PYG{p}{\PYGZgt{}}
+            \PYG{p}{\PYGZlt{}}\PYG{n+nt}{button} \PYG{n+na}{class}\PYG{o}{=}\PYG{l+s}{\PYGZdq{}btn\PYGZdq{}} \PYG{n+na}{id}\PYG{o}{=}\PYG{l+s}{\PYGZdq{}retryBtn\PYGZdq{}}\PYG{p}{\PYGZgt{}}↻ Retry\PYG{p}{\PYGZlt{}}\PYG{p}{/}\PYG{n+nt}{button}\PYG{p}{\PYGZgt{}}
+            \PYG{p}{\PYGZlt{}}\PYG{n+nt}{button} \PYG{n+na}{class}\PYG{o}{=}\PYG{l+s}{\PYGZdq{}btn\PYGZdq{}} \PYG{n+na}{id}\PYG{o}{=}\PYG{l+s}{\PYGZdq{}goMenuBtn\PYGZdq{}}\PYG{p}{\PYGZgt{}}☰ Menu\PYG{p}{\PYGZlt{}}\PYG{p}{/}\PYG{n+nt}{button}\PYG{p}{\PYGZgt{}}
+          \PYG{p}{\PYGZlt{}}\PYG{p}{/}\PYG{n+nt}{div}\PYG{p}{\PYGZgt{}}
+        \PYG{p}{\PYGZlt{}}\PYG{p}{/}\PYG{n+nt}{div}\PYG{p}{\PYGZgt{}}
+      \PYG{p}{\PYGZlt{}}\PYG{p}{/}\PYG{n+nt}{div}\PYG{p}{\PYGZgt{}}
+    \PYG{p}{\PYGZlt{}}\PYG{p}{/}\PYG{n+nt}{div}\PYG{p}{\PYGZgt{}}
+
+    \PYG{c+cm}{\PYGZlt{}!\PYGZhy{}\PYGZhy{} 📱 Мобилдик башкаруу \PYGZhy{}\PYGZhy{}\PYGZgt{}}
+    \PYG{p}{\PYGZlt{}}\PYG{n+nt}{div} \PYG{n+na}{class}\PYG{o}{=}\PYG{l+s}{\PYGZdq{}controls\PYGZdq{}} \PYG{n+na}{aria\PYGZhy{}label}\PYG{o}{=}\PYG{l+s}{\PYGZdq{}Mobile controls\PYGZdq{}}\PYG{p}{\PYGZgt{}}
+      \PYG{p}{\PYGZlt{}}\PYG{n+nt}{button} \PYG{n+na}{class}\PYG{o}{=}\PYG{l+s}{\PYGZdq{}pad up\PYGZdq{}} \PYG{n+na}{data\PYGZhy{}dir}\PYG{o}{=}\PYG{l+s}{\PYGZdq{}up\PYGZdq{}}\PYG{p}{\PYGZgt{}}▲\PYG{p}{\PYGZlt{}}\PYG{p}{/}\PYG{n+nt}{button}\PYG{p}{\PYGZgt{}}
+      \PYG{p}{\PYGZlt{}}\PYG{n+nt}{button} \PYG{n+na}{class}\PYG{o}{=}\PYG{l+s}{\PYGZdq{}pad left\PYGZdq{}} \PYG{n+na}{data\PYGZhy{}dir}\PYG{o}{=}\PYG{l+s}{\PYGZdq{}left\PYGZdq{}}\PYG{p}{\PYGZgt{}}◀\PYG{p}{\PYGZlt{}}\PYG{p}{/}\PYG{n+nt}{button}\PYG{p}{\PYGZgt{}}
+      \PYG{p}{\PYGZlt{}}\PYG{n+nt}{button} \PYG{n+na}{class}\PYG{o}{=}\PYG{l+s}{\PYGZdq{}pad ok\PYGZdq{}} \PYG{n+na}{id}\PYG{o}{=}\PYG{l+s}{\PYGZdq{}okBtn\PYGZdq{}}\PYG{p}{\PYGZgt{}}⏯\PYG{p}{\PYGZlt{}}\PYG{p}{/}\PYG{n+nt}{button}\PYG{p}{\PYGZgt{}}
+      \PYG{p}{\PYGZlt{}}\PYG{n+nt}{button} \PYG{n+na}{class}\PYG{o}{=}\PYG{l+s}{\PYGZdq{}pad right\PYGZdq{}} \PYG{n+na}{data\PYGZhy{}dir}\PYG{o}{=}\PYG{l+s}{\PYGZdq{}right\PYGZdq{}}\PYG{p}{\PYGZgt{}}▶\PYG{p}{\PYGZlt{}}\PYG{p}{/}\PYG{n+nt}{button}\PYG{p}{\PYGZgt{}}
+      \PYG{p}{\PYGZlt{}}\PYG{n+nt}{button} \PYG{n+na}{class}\PYG{o}{=}\PYG{l+s}{\PYGZdq{}pad down\PYGZdq{}} \PYG{n+na}{data\PYGZhy{}dir}\PYG{o}{=}\PYG{l+s}{\PYGZdq{}down\PYGZdq{}}\PYG{p}{\PYGZgt{}}▼\PYG{p}{\PYGZlt{}}\PYG{p}{/}\PYG{n+nt}{button}\PYG{p}{\PYGZgt{}}
+    \PYG{p}{\PYGZlt{}}\PYG{p}{/}\PYG{n+nt}{div}\PYG{p}{\PYGZgt{}}
+
+    \PYG{p}{\PYGZlt{}}\PYG{n+nt}{div} \PYG{n+na}{class}\PYG{o}{=}\PYG{l+s}{\PYGZdq{}notice\PYGZdq{}}\PYG{p}{\PYGZgt{}}Tip: \PYG{p}{\PYGZlt{}}\PYG{n+nt}{b}\PYG{p}{\PYGZgt{}}Expert\PYG{p}{\PYGZlt{}}\PYG{p}{/}\PYG{n+nt}{b}\PYG{p}{\PYGZgt{}} деңгээлде жылаан ар бир жооптон кийин тезирээк болот.\PYG{p}{\PYGZlt{}}\PYG{p}{/}\PYG{n+nt}{div}\PYG{p}{\PYGZgt{}}
+  \PYG{p}{\PYGZlt{}}\PYG{p}{/}\PYG{n+nt}{div}\PYG{p}{\PYGZgt{}}
+\end{MintedVerbatim}
