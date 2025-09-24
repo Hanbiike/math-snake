@@ -8,6 +8,7 @@
 \usepackage{amsmath}
 \usepackage{url}
 \usepackage{minted}
+\usepackage{pdfpages}
 \geometry{margin=2cm}
 
 % PLEASE NOTICE THAT, ACCORDING TO YOUR TITLE LENGTH, YOU MAY WANT TO ADAPT THE VSPACEs, SO THAT THE FINAL PAGE WILL BE PLEASING YOUR TASTE!%
@@ -19,49 +20,43 @@
 \begin{document}
 
 \begin{titlepage}
-    \begin{center}
-            
-        \Huge
-        \textbf{КЫРГЫЗ-ТҮРК «МАНАС» УНИВЕРСИТЕТИ}
-            
-        \vspace{0.5cm}
-        \LARGE
-            ТАБИГЫЙ ИЛИМДЕР ФАКУЛЬТЕТИ
-        
-        %\vspace{0.5cm}
-        \large
-            %Колдонмо математика жана информатика бөлүмү
-            
-        \vspace{1cm}
-         
-        \includegraphics[width=0.5\textwidth]{Manas_logo.pdf}   
-       
-        
-            
-        \vspace{0.5cm}
-            
-        \Huge
-            \textbf{ТЕЗ ЭСЕПТӨӨ ОЮНУ}
-            
-        \vspace{2cm}
-            
-        
-     \end{center}  
-     
-\raggedright
+\begin{center}
 
-\begin{tabular}{@{}l l@{}}
-    \Large Студенттин аты-жөнү: & \Large Аскат Рахымбеков \\[1em]
-    \Large Студенттик №: & \Large 2312.01002 \\[1em]
-    \Large Бөлүмү: & \Large Колдонмо математика жана информатика \\
+    % Логотип
+    \includegraphics[width=0.25\textwidth]{Manas_logo.pdf} \\[1cm]
+    
+    % Университет и факультет
+    \Large
+    КЫРГЫЗ-ТҮРК ``МАНАС'' УНИВЕРСИТЕТИ \\[0.2cm]
+    ТАБИГЫЙ ИЛИМДЕР ФАКУЛЬТЕТИ \\[0.2cm]
+    КОЛДОНМО МАТЕМАТИКА ЖАНА ИНФОРМАТИКА \\[1cm]
+    
+    % Семестр и предмет
+    \Large
+    2025 -- 2026 КҮЗГҮ СЕМЕСТР \\[0.5cm]
+    STJ -- 202 ОКУУ ПРАКТИКАСЫ САБАГЫ \\[1cm]
+    
+    % Тема отчёта
+    \large
+    \textbf{«ТЕЗ ЭСЕПТӨӨ ОЮНУ»} \\[0.3cm]
+    ТЕМАСЫНДАГЫ ПРОЕКТТИН ОТЧЁТУ \\[1cm]
+    
+\end{center}
+
+% Информация о студенте
+\raggedright
+\large
+\begin{tabular}{ll}
+Студенттин аты-жөнү: & Аскат Рахымбеков \\[0.5cm]
+Курсу: & 3 \\[0.5cm]
+Номери: & 2312.01002 \\[1cm]
+Жетекчинин аты-жөнү: & Элла Абылаева \\[1.5cm]
 \end{tabular}
 
-\Large
-    %Thesis written by:
-    %\vspace{0.125cm}\\
-\Large
-    %*Author name*
-    
+\begin{center}
+Бишкек 2025
+\end{center}
+
 \end{titlepage}
 
 \section{Проекттин максаты жана жалпы мүнөздөмөсү}
@@ -161,4 +156,6 @@
 \end{itemize}
 
 Проекттин колдонуу чөйрөлөрү кеңири: мектеп сабактарында, машыгуу сабатында, онлайн-курстарда жана кошумча интерактивдүү курал катары пайдаланууга ылайыктуу. Ошентип, \textbf{«Math × Snake»} билим берүүнүн инновациялык форматы катары окутуу менен оюнду айкалыштырып, математика сабагына кызыгууну күчөтө алат.
+
+\includepdf[pages=1-10, frame, scale=0.95]{code.pdf}
 \end{document}

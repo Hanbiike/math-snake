@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.3.24)  24 SEP 2025 20:25
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.3.24)  24 SEP 2025 22:00
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -661,10 +661,45 @@ Package: float 2001/11/08 v1.3d Float enhancements (AL)
 \c@minted@FancyVerbLineTemp=\count337
 \@float@every@listing=\toks36
 \c@listing=\count338
+) (/usr/local/texlive/2025/texmf-dist/tex/latex/pdfpages/pdfpages.sty
+Package: pdfpages 2025/03/12 v0.6f Insert pages of external PDF documents (AM)
+ (/usr/local/texlive/2025/texmf-dist/tex/latex/base/ifthen.sty
+Package: ifthen 2024/03/16 v1.1e Standard LaTeX ifthen package (DPC)
+) (/usr/local/texlive/2025/texmf-dist/tex/latex/tools/calc.sty
+Package: calc 2023/07/08 v4.3 Infix arithmetic (KKT,FJ)
+\calc@Acount=\count339
+\calc@Bcount=\count340
+\calc@Adimen=\dimen173
+\calc@Bdimen=\dimen174
+\calc@Askip=\skip58
+\calc@Bskip=\skip59
+LaTeX Info: Redefining \setlength on input line 80.
+LaTeX Info: Redefining \addtolength on input line 81.
+\calc@Ccount=\count341
+\calc@Cskip=\skip60
+) (/usr/local/texlive/2025/texmf-dist/tex/latex/eso-pic/eso-pic.sty
+Package: eso-pic 2023/05/03 v3.0c eso-pic (RN)
+\ESO@tempdima=\dimen175
+\ESO@tempdimb=\dimen176
+)
+\AM@pagewidth=\dimen177
+\AM@pageheight=\dimen178
+\AM@fboxrule=\dimen179
+ (/usr/local/texlive/2025/texmf-dist/tex/latex/pdfpages/pppdftex.def
+File: pppdftex.def 2025/03/12 v0.6f Pdfpages driver for pdfTeX (AM)
+)
+\pdfpages@includegraphics@status=\count342
+\AM@pagebox=\box63
+\AM@global@opts=\toks37
+\AM@pagecnt=\count343
+\AM@toc@title=\toks38
+\AM@lof@heading=\toks39
+\c@AM@survey=\count344
+\AM@templatesizebox=\box64
 ) (/usr/local/texlive/2025/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
 File: l3backend-pdftex.def 2024-05-08 L3 backend support: PDF output (pdfTeX)
-\l__color_backend_stack_int=\count339
-\l__pdf_internal_box=\box63
+\l__color_backend_stack_int=\count345
+\l__pdf_internal_box=\box65
 ) (./report-math-snake.aux
 Package babel Info: 'russian' activates 'russian' shorthands.
 (babel)             Reported  on input line 6.
@@ -673,42 +708,42 @@ Package babel Info: 'russian' activates 'russian' shorthands.
 )
 \openout1 = `report-math-snake.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 19.
-LaTeX Font Info:    ... okay on input line 19.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 19.
-LaTeX Font Info:    ... okay on input line 19.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 19.
-LaTeX Font Info:    ... okay on input line 19.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 19.
-LaTeX Font Info:    ... okay on input line 19.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 19.
-LaTeX Font Info:    ... okay on input line 19.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 19.
-LaTeX Font Info:    ... okay on input line 19.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 19.
-LaTeX Font Info:    ... okay on input line 19.
-LaTeX Font Info:    Checking defaults for OT2/cmr/m/n on input line 19.
-LaTeX Font Info:    Trying to load font information for OT2+cmr on input line 19.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 20.
+LaTeX Font Info:    ... okay on input line 20.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 20.
+LaTeX Font Info:    ... okay on input line 20.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 20.
+LaTeX Font Info:    ... okay on input line 20.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 20.
+LaTeX Font Info:    ... okay on input line 20.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 20.
+LaTeX Font Info:    ... okay on input line 20.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 20.
+LaTeX Font Info:    ... okay on input line 20.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 20.
+LaTeX Font Info:    ... okay on input line 20.
+LaTeX Font Info:    Checking defaults for OT2/cmr/m/n on input line 20.
+LaTeX Font Info:    Trying to load font information for OT2+cmr on input line 20.
  (/usr/local/texlive/2025/texmf-dist/tex/latex/cyrillic/ot2cmr.fd
 File: ot2cmr.fd 2001/08/11 v3.2c Computer Modern Cyrillic font definitions
 )
-LaTeX Font Info:    ... okay on input line 19.
-LaTeX Font Info:    Checking defaults for T2A/cmr/m/n on input line 19.
-LaTeX Font Info:    ... okay on input line 19.
-LaTeX Info: Redefining \th on input line 19.
+LaTeX Font Info:    ... okay on input line 20.
+LaTeX Font Info:    Checking defaults for T2A/cmr/m/n on input line 20.
+LaTeX Font Info:    ... okay on input line 20.
+LaTeX Info: Redefining \th on input line 20.
  (/usr/local/texlive/2025/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count340
-\scratchdimen=\dimen173
-\scratchbox=\box64
-\nofMPsegments=\count341
-\nofMParguments=\count342
-\everyMPshowfont=\toks37
-\MPscratchCnt=\count343
-\MPscratchDim=\dimen174
-\MPnumerator=\count344
-\makeMPintoPDFobject=\count345
-\everyMPtoPDFconversion=\toks38
+\scratchcounter=\count346
+\scratchdimen=\dimen180
+\scratchbox=\box66
+\nofMPsegments=\count347
+\nofMParguments=\count348
+\everyMPshowfont=\toks40
+\MPscratchCnt=\count349
+\MPscratchDim=\dimen181
+\MPnumerator=\count350
+\makeMPintoPDFobject=\count351
+\everyMPtoPDFconversion=\toks41
 ) (/usr/local/texlive/2025/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
 Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
 Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 485.
@@ -749,17 +784,26 @@ File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Live
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
+(/usr/local/texlive/2025/texmf-dist/tex/latex/pdflscape/pdflscape.sty
+Package: pdflscape 2022-10-27 v0.13 Display of landscape pages in PDF
+ (/usr/local/texlive/2025/texmf-dist/tex/latex/pdflscape/pdflscape-nometadata.sty
+Package: pdflscape-nometadata 2022-10-28 v0.13 Display of landscape pages in PDF (HO)
+ (/usr/local/texlive/2025/texmf-dist/tex/latex/graphics/lscape.sty
+Package: lscape 2020/05/28 v3.02 Landscape Pages (DPC)
+)
+Package pdflscape Info: Auto-detected driver: pdftex on input line 81.
+))
 <Manas_logo.pdf, id=1, 1690.09372pt x 2392.87677pt>
 File: Manas_logo.pdf Graphic file (type pdf)
 <use Manas_logo.pdf>
-Package pdftex.def Info: Manas_logo.pdf  used on input line 37.
-(pdftex.def)             Requested size: 250.24199pt x 354.27896pt.
+Package pdftex.def Info: Manas_logo.pdf  used on input line 26.
+(pdftex.def)             Requested size: 125.12099pt x 177.12123pt.
 
 
 [1
 
 {/usr/local/texlive/2025/texmf-var/fonts/map/pdftex/updmap/pdftex.map}{/usr/local/texlive/2025/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t2a.enc} <./Manas_logo.pdf>]
-LaTeX Font Info:    Trying to load font information for T2A+cmtt on input line 77.
+LaTeX Font Info:    Trying to load font information for T2A+cmtt on input line 72.
  (/usr/local/texlive/2025/texmf-dist/tex/latex/cyrillic/t2acmtt.fd
 File: t2acmtt.fd 2001/08/11 v1.0a Computer Modern Cyrillic font definitions
 ) 
@@ -773,31 +817,224 @@ File: t2acmtt.fd 2001/08/11 v1.0a Computer Modern Cyrillic font definitions
 <IMG_3725.jpeg, id=18, 913.4125pt x 913.4125pt>
 File: IMG_3725.jpeg Graphic file (type jpg)
 <use IMG_3725.jpeg>
-Package pdftex.def Info: IMG_3725.jpeg  used on input line 103.
+Package pdftex.def Info: IMG_3725.jpeg  used on input line 98.
 (pdftex.def)             Requested size: 125.12099pt x 125.11725pt.
 <IMG_3726.jpeg, id=19, 1294.8375pt x 1294.8375pt>
 File: IMG_3726.jpeg Graphic file (type jpg)
 <use IMG_3726.jpeg>
-Package pdftex.def Info: IMG_3726.jpeg  used on input line 104.
+Package pdftex.def Info: IMG_3726.jpeg  used on input line 99.
 (pdftex.def)             Requested size: 125.12099pt x 125.10515pt.
 <IMG_3727.jpeg, id=20, 1171.37625pt x 1171.37625pt>
 File: IMG_3727.jpeg Graphic file (type jpg)
 <use IMG_3727.jpeg>
-Package pdftex.def Info: IMG_3727.jpeg  used on input line 105.
+Package pdftex.def Info: IMG_3727.jpeg  used on input line 100.
 (pdftex.def)             Requested size: 125.12099pt x 125.11617pt.
 
 
 [1{/usr/local/texlive/2025/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc} <./IMG_3725.jpeg> <./IMG_3726.jpeg> <./IMG_3727.jpeg>]
 
 [2]
-Overfull \hbox (8.89116pt too wide) in paragraph at lines 163--164
+Overfull \hbox (8.89116pt too wide) in paragraph at lines 158--159
 []\T2A/cmr/m/n/12 Проекттин кол-до-нуу ч°й-р°л°рі ке­и-ри: мек-теп са-бак-та-рын-да, ма-шы-гуу са-ба-тын-да, онлайн-
  []
 
+<code.pdf, id=38, 597.23125pt x 845.1575pt>
+File: code.pdf Graphic file (type pdf)
+<use code.pdf>
+Package pdftex.def Info: code.pdf  used on input line 160.
+(pdftex.def)             Requested size: 597.22978pt x 845.15544pt.
+<code.pdf, id=40, page=1, 597.23125pt x 845.1575pt>
+File: code.pdf Graphic file (type pdf)
+<use code.pdf, page 1>
+Package pdftex.def Info: code.pdf , page1 used on input line 160.
+(pdftex.def)             Requested size: 597.22978pt x 845.15544pt.
+File: code.pdf Graphic file (type pdf)
+<use code.pdf, page 1>
+Package pdftex.def Info: code.pdf , page1 used on input line 160.
+(pdftex.def)             Requested size: 567.36647pt x 802.89508pt.
 
 
 [3]
-runsystem(latexminted cleantemp  --timestamp 20250924202530 960C96BE53F69DFA66C8379BB0B14F06)...executed safely (allowed).
+File: code.pdf Graphic file (type pdf)
+<use code.pdf, page 1>
+Package pdftex.def Info: code.pdf , page1 used on input line 160.
+(pdftex.def)             Requested size: 567.36647pt x 802.89508pt.
+File: code.pdf Graphic file (type pdf)
+<use code.pdf, page 1>
+Package pdftex.def Info: code.pdf , page1 used on input line 160.
+(pdftex.def)             Requested size: 567.36647pt x 802.89508pt.
+
+
+File: code.pdf Graphic file (type pdf)
+<use code.pdf, page 1>
+Package pdftex.def Info: code.pdf , page1 used on input line 160.
+(pdftex.def)             Requested size: 567.36647pt x 802.89508pt.
+[4
+
+ <./code.pdf>]
+<code.pdf, id=75, page=2, 597.23125pt x 845.1575pt>
+File: code.pdf Graphic file (type pdf)
+<use code.pdf, page 2>
+Package pdftex.def Info: code.pdf , page2 used on input line 160.
+(pdftex.def)             Requested size: 567.36647pt x 802.89508pt.
+File: code.pdf Graphic file (type pdf)
+<use code.pdf, page 2>
+Package pdftex.def Info: code.pdf , page2 used on input line 160.
+(pdftex.def)             Requested size: 567.36647pt x 802.89508pt.
+
+
+File: code.pdf Graphic file (type pdf)
+<use code.pdf, page 2>
+Package pdftex.def Info: code.pdf , page2 used on input line 160.
+(pdftex.def)             Requested size: 567.36647pt x 802.89508pt.
+[5
+
+ <./code.pdf>]
+<code.pdf, id=85, page=3, 597.23125pt x 845.1575pt>
+File: code.pdf Graphic file (type pdf)
+<use code.pdf, page 3>
+Package pdftex.def Info: code.pdf , page3 used on input line 160.
+(pdftex.def)             Requested size: 567.36647pt x 802.89508pt.
+File: code.pdf Graphic file (type pdf)
+<use code.pdf, page 3>
+Package pdftex.def Info: code.pdf , page3 used on input line 160.
+(pdftex.def)             Requested size: 567.36647pt x 802.89508pt.
+
+
+File: code.pdf Graphic file (type pdf)
+<use code.pdf, page 3>
+Package pdftex.def Info: code.pdf , page3 used on input line 160.
+(pdftex.def)             Requested size: 567.36647pt x 802.89508pt.
+[6
+
+ <./code.pdf>]
+<code.pdf, id=100, page=4, 597.23125pt x 845.1575pt>
+File: code.pdf Graphic file (type pdf)
+<use code.pdf, page 4>
+Package pdftex.def Info: code.pdf , page4 used on input line 160.
+(pdftex.def)             Requested size: 567.36647pt x 802.89508pt.
+File: code.pdf Graphic file (type pdf)
+<use code.pdf, page 4>
+Package pdftex.def Info: code.pdf , page4 used on input line 160.
+(pdftex.def)             Requested size: 567.36647pt x 802.89508pt.
+
+
+File: code.pdf Graphic file (type pdf)
+<use code.pdf, page 4>
+Package pdftex.def Info: code.pdf , page4 used on input line 160.
+(pdftex.def)             Requested size: 567.36647pt x 802.89508pt.
+[7
+
+ <./code.pdf>]
+<code.pdf, id=108, page=5, 597.23125pt x 845.1575pt>
+File: code.pdf Graphic file (type pdf)
+<use code.pdf, page 5>
+Package pdftex.def Info: code.pdf , page5 used on input line 160.
+(pdftex.def)             Requested size: 567.36647pt x 802.89508pt.
+File: code.pdf Graphic file (type pdf)
+<use code.pdf, page 5>
+Package pdftex.def Info: code.pdf , page5 used on input line 160.
+(pdftex.def)             Requested size: 567.36647pt x 802.89508pt.
+
+
+File: code.pdf Graphic file (type pdf)
+<use code.pdf, page 5>
+Package pdftex.def Info: code.pdf , page5 used on input line 160.
+(pdftex.def)             Requested size: 567.36647pt x 802.89508pt.
+[8
+
+ <./code.pdf>]
+<code.pdf, id=114, page=6, 597.23125pt x 845.1575pt>
+File: code.pdf Graphic file (type pdf)
+<use code.pdf, page 6>
+Package pdftex.def Info: code.pdf , page6 used on input line 160.
+(pdftex.def)             Requested size: 567.36647pt x 802.89508pt.
+File: code.pdf Graphic file (type pdf)
+<use code.pdf, page 6>
+Package pdftex.def Info: code.pdf , page6 used on input line 160.
+(pdftex.def)             Requested size: 567.36647pt x 802.89508pt.
+
+
+File: code.pdf Graphic file (type pdf)
+<use code.pdf, page 6>
+Package pdftex.def Info: code.pdf , page6 used on input line 160.
+(pdftex.def)             Requested size: 567.36647pt x 802.89508pt.
+[9
+
+ <./code.pdf>]
+<code.pdf, id=120, page=7, 597.23125pt x 845.1575pt>
+File: code.pdf Graphic file (type pdf)
+<use code.pdf, page 7>
+Package pdftex.def Info: code.pdf , page7 used on input line 160.
+(pdftex.def)             Requested size: 567.36647pt x 802.89508pt.
+File: code.pdf Graphic file (type pdf)
+<use code.pdf, page 7>
+Package pdftex.def Info: code.pdf , page7 used on input line 160.
+(pdftex.def)             Requested size: 567.36647pt x 802.89508pt.
+
+
+File: code.pdf Graphic file (type pdf)
+<use code.pdf, page 7>
+Package pdftex.def Info: code.pdf , page7 used on input line 160.
+(pdftex.def)             Requested size: 567.36647pt x 802.89508pt.
+[10
+
+ <./code.pdf>]
+<code.pdf, id=124, page=8, 597.23125pt x 845.1575pt>
+File: code.pdf Graphic file (type pdf)
+<use code.pdf, page 8>
+Package pdftex.def Info: code.pdf , page8 used on input line 160.
+(pdftex.def)             Requested size: 567.36647pt x 802.89508pt.
+File: code.pdf Graphic file (type pdf)
+<use code.pdf, page 8>
+Package pdftex.def Info: code.pdf , page8 used on input line 160.
+(pdftex.def)             Requested size: 567.36647pt x 802.89508pt.
+
+
+File: code.pdf Graphic file (type pdf)
+<use code.pdf, page 8>
+Package pdftex.def Info: code.pdf , page8 used on input line 160.
+(pdftex.def)             Requested size: 567.36647pt x 802.89508pt.
+[11
+
+ <./code.pdf>]
+<code.pdf, id=128, page=9, 597.23125pt x 845.1575pt>
+File: code.pdf Graphic file (type pdf)
+<use code.pdf, page 9>
+Package pdftex.def Info: code.pdf , page9 used on input line 160.
+(pdftex.def)             Requested size: 567.36647pt x 802.89508pt.
+File: code.pdf Graphic file (type pdf)
+<use code.pdf, page 9>
+Package pdftex.def Info: code.pdf , page9 used on input line 160.
+(pdftex.def)             Requested size: 567.36647pt x 802.89508pt.
+
+
+File: code.pdf Graphic file (type pdf)
+<use code.pdf, page 9>
+Package pdftex.def Info: code.pdf , page9 used on input line 160.
+(pdftex.def)             Requested size: 567.36647pt x 802.89508pt.
+[12
+
+ <./code.pdf>]
+<code.pdf, id=133, page=10, 597.23125pt x 845.1575pt>
+File: code.pdf Graphic file (type pdf)
+<use code.pdf, page 10>
+Package pdftex.def Info: code.pdf , page10 used on input line 160.
+(pdftex.def)             Requested size: 567.36647pt x 802.89508pt.
+File: code.pdf Graphic file (type pdf)
+<use code.pdf, page 10>
+Package pdftex.def Info: code.pdf , page10 used on input line 160.
+(pdftex.def)             Requested size: 567.36647pt x 802.89508pt.
+
+
+File: code.pdf Graphic file (type pdf)
+<use code.pdf, page 10>
+Package pdftex.def Info: code.pdf , page10 used on input line 160.
+(pdftex.def)             Requested size: 567.36647pt x 802.89508pt.
+[13
+
+ <./code.pdf>]
+runsystem(latexminted cleantemp  --timestamp 20250924220004 960C96BE53F69DFA66C8379BB0B14F06)...executed safely (allowed).
 
  (./report-math-snake.aux <Reading QR code for "https://hanbiike.github.io/math-snake/" at level 3-M from aux file.>
 <Reading QR code for "https://github.com/Hanbiike/math-snake" at level 3-M from aux file.>
@@ -808,18 +1045,18 @@ L3 programming layer <2025-01-18>
  ***********
  ) 
 Here is how much of TeX's memory you used:
- 12146 strings out of 473190
- 241465 string characters out of 5715800
- 816389 words of memory out of 5000000
- 35239 multiletter control sequences out of 15000+600000
- 573807 words of font info for 64 fonts, out of 8000000 for 9000
+ 13070 strings out of 473190
+ 257864 string characters out of 5715800
+ 833362 words of memory out of 5000000
+ 36139 multiletter control sequences out of 15000+600000
+ 572737 words of font info for 66 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 85i,10n,93p,1026b,379s stack positions out of 10000i,1000n,20000p,200000b,200000s
-</usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/cm-super/sfbx1095.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/cm-super/sfbx1200.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/cm-super/sfbx1440.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/cm-super/sfbx1728.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/cm-super/sfbx2488.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/cm-super/sfrm1200.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/cm-super/sfrm1728.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/cm-super/sfrm2074.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/cm-super/sfti1200.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/cm-super/sftt1200.pfb>
-Output written on report-math-snake.pdf (4 pages, 1917758 bytes).
+ 85i,19n,93p,1026b,566s stack positions out of 10000i,1000n,20000p,200000b,200000s
+</usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/cm-super/sfbx1095.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/cm-super/sfbx1200.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/cm-super/sfbx1440.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/cm-super/sfbx1728.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/cm-super/sfrm1200.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/cm-super/sfrm1440.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/cm-super/sfrm1728.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/cm-super/sfti1200.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/cm-super/sftt1200.pfb>
+Output written on report-math-snake.pdf (14 pages, 2091470 bytes).
 PDF statistics:
- 102 PDF objects out of 1000 (max. 8388607)
- 61 compressed objects within 1 object stream
+ 196 PDF objects out of 1000 (max. 8388607)
+ 93 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
- 21 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 81 words of extra memory for PDF output out of 10000 (max. 10000000)
 
